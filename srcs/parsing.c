@@ -19,7 +19,7 @@ static void	first_and_last_line(char *line, char **map)
 	while (line[i])
 	{
 		if (line[i] != '1')
-			error("the map must be surrounded by '1'", map);
+			error("Error: the map must be surrounded by '1'", map);
 		i++;
 	}
 }
@@ -34,7 +34,7 @@ static void	verif_character(char *line, char **map)
 	while (i < line_size)
 	{
 		if (!ft_isdigit(line[i]))
-			error("only numbers is accepted", map);
+			error("Error: non digit character founded", map);
 		i++;
 	}
 }
@@ -51,9 +51,9 @@ static void	verif_line(char *line, size_t pattern, size_t nb_line, char **map)
 	else
 	{
 		if (line_size != pattern)
-			error("the size of the line must be the same", map);
+			error("Error: the size of the line must be the same", map);
 		if (line[0] != '1' || line[line_size - 1] != '1')
-			error("the map must be surrounded by '1'", map);
+			error("Error: the map must be surrounded by '1'", map);
 		verif_character(line, map);
 	}
 
@@ -69,7 +69,7 @@ char		**parsing(char *map_read)
 	if (!ft_strchr(map_read, '9') || ft_count_char(map_read, '9') != 1)
 	{
 		free(map_read);
-		error("put one nine to let the player spawn", NULL);
+		error("Error: put a '9' to let the player spawn", NULL);
 	}
 	map = ft_strsplit(map_read, '/');
 	free(map_read);

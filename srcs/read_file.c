@@ -47,17 +47,17 @@ char		*read_file(int argc, char **argv)
 	size_map = 32;
 	map = ft_strnew(size_map);
 	if (argc != 2)
-		error("wrong numbers of arguments", map);
+		error("Error: wrong numbers of arguments", map);
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
-		error("an unexpected error occured", map);
+		error("Error: an unexpected error occured", map);
 	while (get_next_line(fd, &line) > 0)
 	{
 		fill_map(line, &map, &size_map);
 		free(line);
 	}
 	if (close(fd) < 0)
-		error("an unexpected error occured", map);
+		error("Error: an unexpected error occured", map);
 	if (!ft_strlen(map) || ft_strstr(map, "//") || !ft_strcmp(map, "/"))
-		error("we do not accept empty line(s)", map);
+		error("Error: we do not accept empty line(s)", map);
 	return (map);
 }

@@ -13,7 +13,7 @@ INCDIR		= ./incs/ ./libft/ ./minilibx_macos/ ./libmath/
 
 # Source files (Can be changed)
 
-SRC			= deal_key.c image.c init.c main.c parsing.c print.c put_pixel.c raycasting.c read_file.c 
+SRC			= deal_key.c image.c init.c main.c parsing.c print.c put_pixel.c read_file.c raycasting.c
 
 LFT			= ./libft/libft.a
 LMTH		= ./libmath/libmath.a
@@ -33,7 +33,7 @@ FRAMEWORKS	= $(foreach framework, $(TOOLS), -framework $(framework))
 CC			= gcc
 OBJ			= $(SRC:.c=.o)
 LIBS		= -L$(LFTDIR) -lft -L$(MLXDIR) -lmlx -L$(LMTHDIR) -lmath
-CFLAGS		= $(INCLUDES) -Wall -Wextra -Werror -O3
+CFLAGS		= $(INCLUDES) #-Wall -Wextra -Werror -O3
 
 # Color codes
 
@@ -79,12 +79,13 @@ clean:
 # Deleting the executable after cleaning up all .o files
 
 fclean: clean
+	@rm -f $(NAME)
+	@rm -rf $(OBJDIR)
+
+cleanLibrairy:
 	@make -sC $(LFTDIR) fclean
 	@make -sC $(MLXDIR) clean
 	@make -sC $(LMTHDIR) fclean
-	@echo "$(GREEN)***   Deleting executable file from $(NAME)   ...   ***\n$(RESET)"
-	@rm -f $(NAME)
-	@rm -rf $(OBJDIR)
 
 re: fclean all
 
