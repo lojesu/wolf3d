@@ -3,40 +3,61 @@
 #include "libft.h"
 #include <math.h>
 
-
 #include <stdio.h>
 
-size_t strLenLen (char ** tab)
+ #define ANGLE(ori, col) ori + VISUAL_FIELD / 2 - col * VISUAL_FIELD / WIDTH
+
+int32_t	base_x(t_cam *cam, double angle)
 {
-        size_t x = 0;
-        while (tab[x])
-            ++x;
-        return (x);
+	int32_t adj;
+
+	adj = cam->y / 64 * 64;
+	if (angle < 360 && angle > 180)
+		adj += 64;
+	adj = ABS((adj - cam->y));
+	return (adj + cam->x);
 }
-                
-size_t	dist_horizontal(t_cam cam, char **map, double angle, int8_t y_oriented)
+	
+int32_t	base_y(t_cam *cam, double angle)
+{
+	int32_t opp;
+
+	opp = cam->x / 64 * 64;
+	if (angle < 90 || angle > 270)
+		opp += 64;
+	opp = ABS((opp - cam->x));
+	return (opp + cam->y);
+}
+	
+
+size_t	dist_horizontal(t_cam *cam, char **map, double angle, int8_t y_oriented)
 {
 	int32_t	xa;
 	int32_t	x;
-	int32_t	y; 
+	int32_t	y;
 	size_t	i;
 
+	////printf("bite1\n");
 	i = 0;
-    angle = angle < 0 ? (angle + 360) : (angle == 0 ? 0.00001 : angle);
-	xa = FRAME / tan(deg_to_rad(angle));
-    xa = fabs(xa);
-	x = (cam.x + i * xa);
-	y = cam.y;
-	while (y >= 0 && y / 64 < strLenLen(map) && x / 64 <= (int)ft_strlen(map[y / 64]) && map[y / 64][x / 64] != '1' )
+	angle = ((int)angle % 180) == 0 ? angle + 0.1 : angle;
+	xa = ABS(FRAME / tan(deg_to_rad(angle)));
+	x = (base_x(cam, angle) + i * xa);
+	//printf("%i\n", x);
+	y = base_y(cam, angle);
+	//printf("%i\n", y);
+	////printf("bite2\n");
+	while (y >= 0 && y / 64 < ft_strlen_len(map)
+		&& x / 64 <= (int)ft_strlen(map[y / 64]) && map[y / 64][x / 64] != '1')
 	{
 		++i;
-		x = (cam.x + i * xa);
+		x = (base_x(cam, angle) + i * xa);
 		y += y_oriented * 64;
 	}
-	return ((size_t)(hypot(x - cam.x, y - cam.y)));
+	////printf("bite3\n\n");
+	return ((size_t)hypot(x - cam->x, y - cam->y));
 }
 
-size_t	dist_vertical(t_cam cam, char **map, double angle, int8_t x_oriented)
+size_t	dist_vertical(t_cam *cam, char **map, double angle, int8_t x_oriented)
 {
 	int32_t	ya;
 	int32_t	y;
@@ -44,40 +65,39 @@ size_t	dist_vertical(t_cam cam, char **map, double angle, int8_t x_oriented)
 	size_t	i;
 
 	i = 0;
-    angle = angle < 0 ? (angle + 360) : (angle == 0 ? 0.00001 : angle);
-	ya = FRAME * tan(deg_to_rad(angle));
-    ya = fabs(ya);
-	y = (cam.y + i * ya);
-	x = cam.x;
-    printf("%f -- %i\n", angle, ya);
-	while (y >= 0 && y / 64 < strLenLen(map) && x / 64 <= (int)ft_strlen(map[y / 64]) && map[y / 64][x / 64] != '1' )
+	angle = ((int)angle % 180) == 0 ? angle + 0.1 : angle;
+	ya = ABS(FRAME * tan(deg_to_rad(angle)));
+	y = (base_y(cam, angle) + i * ya);
+	x = base_x(cam, angle);
+	while (y >= 0 && y / 64 < ft_strlen_len(map)
+		&& x / 64 <= (int)ft_strlen(map[y / 64]) && map[y / 64][x / 64] != '1')
 	{
 		++i;
-		y = (cam.y + i * ya);
+		y = (base_y(cam, angle) + i * ya);
 		x += x_oriented * 64;
-        printf("%i %i %i\n", x, y, i);
 	}
-	return ((size_t)(hypot(x - cam.x, y - cam.y)));
+	return ((size_t)hypot(x - cam->x, y - cam->y));
 }
 
-size_t	find_dist_wall(t_cam cam, char **map, size_t column)
+size_t	find_dist_wall(t_cam *cam, char **map, size_t column)
 {
 	double	angle;
-	int8_t	y_oriented;
-	int8_t	x_oriented;
+	int8_t	oriented;
 	size_t	dist_h;
 	size_t	dist_v;
 
-	angle = cam.orientation + VISUAL_FIELD / 2 - ((double)column) * VISUAL_FIELD / WIDTH;
-	y_oriented = angle > 0 && angle < 180 ? -1 : 1;
-	dist_h = dist_horizontal(cam, map, angle, y_oriented) * cos(deg_to_rad(((double)column) * VISUAL_FIELD / WIDTH -30));
-	x_oriented = angle > 90 && angle < 270 ? -1 : 1;
-	dist_v = dist_vertical(cam, map, angle, x_oriented) * cos(deg_to_rad(((double)column) * VISUAL_FIELD / WIDTH -30));
-    printf("%zu\n", dist_v);
+	angle = ANGLE(cam->orientation, (double)column);
+	angle = angle < 0 ? angle + 360 : angle;
+	oriented = angle > 0 && angle < 180 ? -1 : 1;
+	dist_h = dist_horizontal(cam, map, angle, oriented) * TRUE_DIST;
+	printf("%i -> %zu -- ", column, dist_h);
+	oriented = angle > 90 && angle < 270 ? -1 : 1;
+	dist_v = dist_vertical(cam, map, angle, oriented) * TRUE_DIST;
+	printf("%zu\n", dist_v);
 	return (dist_h < dist_v ? dist_h : dist_v);
 }
 
-void	raycasting(t_win *win, t_cam cam, char **map)
+void	raycasting(t_win *win, t_cam *cam, char **map)
 {
 	size_t	column;
 	size_t	size_wall;

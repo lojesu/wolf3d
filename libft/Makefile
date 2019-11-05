@@ -6,7 +6,7 @@
 #    By: roster <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 11:28:35 by roster            #+#    #+#              #
-#    Updated: 2019/10/26 19:00:36 by lojesu           ###   ########.fr        #
+#    Updated: 2019/10/31 14:15:28 by lojesu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,7 +103,8 @@ SRCS_LIBFT = ft_atoi.c \
 			ft_nb_size.c \
 			ft_isnumber.c \
 			ft_count_char.c \
-			ft_print_tab.c
+			ft_print_tab.c \
+			ft_strlen_len.c
 
 SRCS_PRINTF = ft_accuracy.c \
 			 ft_dispatcher.c \

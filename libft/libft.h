@@ -6,7 +6,7 @@
 /*   By: roster <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:38:27 by roster            #+#    #+#             */
-/*   Updated: 2019/10/26 19:01:06 by lojesu           ###   ########.fr       */
+/*   Updated: 2019/10/31 14:15:11 by lojesu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ int					ft_printf(const char *fmt, ...);
 int					ft_isnumber(char *num);
 void				ft_print_tab(char **tab);
 size_t				ft_count_char(char *str, int c);
+size_t				ft_strlen_len(char **tab);
 
 #endif

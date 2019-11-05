@@ -1,7 +1,9 @@
 #include "mlx.h"
 #include "wolf3d.h"
 
-static void	where_is_the_spawn(size_t *x, size_t *y, char **map)
+#include <stdio.h>
+#include "libft.h"
+static void	where_is_the_spawn(int32_t *x, int32_t *y, char **map)
 {
 	*y = 0;
 	while (map[*y])
@@ -20,13 +22,13 @@ static void	where_is_the_spawn(size_t *x, size_t *y, char **map)
 t_cam		init_cam(char **map)
 {
 	t_cam	ret;
-	size_t	x;
-	size_t	y;
+	int32_t	x;
+	int32_t	y;
 
 	where_is_the_spawn(&x, &y, map);
-	ret.x = x * FRAME;
-	ret.y = y * FRAME;
-	ret.orientation = 271;
+	ret.x = x * FRAME + FRAME / 2;
+	ret.y = y * FRAME + FRAME / 2;
+	ret.orientation = 45;
 	return (ret);
 }
 

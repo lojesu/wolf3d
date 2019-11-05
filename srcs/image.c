@@ -10,7 +10,6 @@ void	clear_window(t_win *win)
 
 void	new_image(t_win *win)
 {
-	clear_window(win);
 	IMG_PTR = mlx_new_image(MLX_PTR, WIDTH, HEIGHT);
 	IMG_STR = mlx_get_data_addr(IMG_PTR, &(BPP), &(S_L), &(ENDIAN));
 }

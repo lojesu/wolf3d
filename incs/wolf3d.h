@@ -5,9 +5,12 @@
 # define HEIGHT 480
 
 # define DIST_SCREEN (int)((WIDTH / 2) / tan(deg_to_rad(30)))
+# define TRUE_DIST cos(deg_to_rad(((double)column) * VISUAL_FIELD / WIDTH - 30))
+# define ABS(x) (x < 0 ? -x : x)
+
+# define VISUAL_FIELD 60
 # define FRAME 64
 # define CAM_HIGH WALL_SIZE / 2
-# define VISUAL_FIELD 60
 
 # define MLX_PTR win->mlx_ptr
 # define WIN_PTR win->win_ptr
@@ -16,6 +19,14 @@
 # define BPP win->bpp
 # define S_L win->s_l
 # define ENDIAN win->endian
+
+# define ESC 53
+# define FORWARD 13
+# define BACKWARD 1
+# define LEFT 0
+# define RIGHT 2
+# define L_ROTATION 123
+# define R_ROTATION 124
 
 # include <stddef.h>
 # include <stdint.h>
@@ -39,6 +50,13 @@ typedef	struct	s_win
 	int		endian;
 }				t_win;
 
+typedef	struct	s_env
+{
+	t_win	win;
+	t_cam	cam;
+	char	**map;
+}				t_env;
+
 /*
 ** initialisation functions
 */
@@ -55,7 +73,7 @@ void		clear_window(t_win *win);
 /*
 ** functions that manage keys on the keyboard
 */
-int			deal_key(int key, t_win *win);
+int			deal_key(int key, t_env *env);
 
 /*
 ** parsing functions
@@ -66,7 +84,7 @@ char	**parsing(char *map_read);
 /*
 ** raycasting functions
 */
-void	raycasting(t_win *win, t_cam cam, char **map);
+void	raycasting(t_win *win, t_cam *cam, char **map);
 
 /*
 ** print functions

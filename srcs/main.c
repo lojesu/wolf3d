@@ -5,25 +5,26 @@
 
 #include <stdio.h>
 
-static void	waiting_instruction(t_win *win)
+static void	waiting_instruction(t_env *env)
 {
-	mlx_hook(WIN_PTR, 2, 0, deal_key, win);
+	t_win	*win;
+
+	win = &(env->win);
+	mlx_hook(WIN_PTR, 2, 0, deal_key, env);
 	mlx_loop(MLX_PTR);
 }
 
 int			main(int argc, char **argv)
 {
-	t_win	win;
-	char	**map;
-	t_cam	cam;
+	t_env	env;
 
-	map = parsing(read_file(argc, argv));
-	/*ft_print_tab(map);//print temporaire
-	ft_tabdel_char(&map);//free temporaire*/
-	init_mlx(&win);
-	cam = init_cam(map);
-	raycasting(&win, cam, map);
-	put_image(&win);
-	waiting_instruction(&win);
+	env.map = parsing(read_file(argc, argv));
+	init_mlx(&(env.win));
+	ft_print_tab(env.map);
+	env.cam = init_cam(env.map);
+	raycasting(&(env.win), &(env.cam), env.map);
+	put_image(&(env.win));
+	waiting_instruction(&env);
+	ft_tabdel_char(&(env.map));//free temporaire
 	return (0);
 }
