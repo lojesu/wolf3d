@@ -5,22 +5,38 @@
 #include "libmath.h"
 #include <math.h>
 
+#define SPEED 8
+
 static void	move(int key, t_env *env, t_win *win, t_cam *cam)
 {
 	if (key == FORWARD)
 	{
-		cam->x += cos(deg_to_rad(cam->orientation)) * 8;
-		cam->y -= sin(deg_to_rad(cam->orientation)) * 8;
+		cam->x += cos(deg_to_rad(cam->orientation)) * SPEED;
+		cam->y -= sin(deg_to_rad(cam->orientation)) * SPEED;
 		raycasting(win, cam, env->map);
 		put_image(win);
 	}
 	else if (key == BACKWARD)
 	{
-		cam->x -= cos(deg_to_rad(cam->orientation)) * 8;
-		cam->y += sin(deg_to_rad(cam->orientation)) * 8;
+		cam->x -= cos(deg_to_rad(cam->orientation)) * SPEED;
+		cam->y += sin(deg_to_rad(cam->orientation)) * SPEED;
 		raycasting(win, cam, env->map);
 		put_image(win);
 	}
+    else if (key == LEFT)
+    {
+		cam->x -= cos(deg_to_rad(cam->orientation - 90)) * SPEED;
+		cam->y += sin(deg_to_rad(cam->orientation - 90)) * SPEED;
+		raycasting(win, cam, env->map);
+		put_image(win);
+    }
+    else if (key == RIGHT)
+    {
+		cam->x -= cos(deg_to_rad(cam->orientation + 90)) * SPEED;
+		cam->y += sin(deg_to_rad(cam->orientation + 90)) * SPEED;
+		raycasting(win, cam, env->map);
+		put_image(win);
+    }
 }
 
 static void	rotation(int key, t_env *env, t_win *win, t_cam *cam)

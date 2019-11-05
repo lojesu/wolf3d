@@ -7,6 +7,12 @@ void	print_column(t_win *win, size_t size_wall, size_t column)
 
 	start = HEIGHT / 2 - size_wall / 2;
 	i = 0;
+    if (size_wall >= HEIGHT)
+    {
+        while (i < HEIGHT)
+		    put_pixel(win, column, i++, 0xff0044);
+        return ;
+    }
 	while (i < start)
 	{
 		put_pixel(win, column, i, 0x000069);

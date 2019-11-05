@@ -5,7 +5,7 @@
 # define HEIGHT 480
 
 # define DIST_SCREEN (int)((WIDTH / 2) / tan(deg_to_rad(30)))
-# define TRUE_DIST cos(deg_to_rad(((double)column) * VISUAL_FIELD / WIDTH - 30))
+# define TRUE_DIST (cos(deg_to_rad(((double)column) * VISUAL_FIELD / WIDTH - 30)))
 # define ABS(x) (x < 0 ? -x : x)
 
 # define VISUAL_FIELD 60
