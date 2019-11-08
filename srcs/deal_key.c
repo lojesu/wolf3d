@@ -5,8 +5,8 @@
 #include "libmath.h"
 #include <math.h>
 
-#define SPEED 64
-#define ROTATION 90
+#define SPEED 8
+#define ROTATION 8
 
 static void	move(int key, t_env *env, t_win *win, t_cam *cam)
 {
@@ -53,17 +53,18 @@ static void	move(int key, t_env *env, t_win *win, t_cam *cam)
 
 static void	rotation(int key, t_env *env, t_win *win, t_cam *cam)
 {
+    printf("ORIENTATION: %i\n", cam->orientation);
 	if (key == L_ROTATION)
 	{
 		cam->orientation += ROTATION;
-		cam->orientation = cam->orientation > 360 ? - 360 : cam->orientation;
+		cam->orientation = cam->orientation >= 360 ? cam->orientation - 360 : cam->orientation;
 		raycasting(win, cam, env->map);
 		put_image(win);
 	}
 	else if (key == R_ROTATION)
 	{
 		cam->orientation -= ROTATION;
-		cam->orientation = cam->orientation < -360 ? + 360 : cam->orientation;
+		cam->orientation = cam->orientation < 0 ? cam->orientation + 360 : cam->orientation;
 		raycasting(win, cam, env->map);
 		put_image(win);
 	}
