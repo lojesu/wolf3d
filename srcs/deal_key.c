@@ -5,35 +5,47 @@
 #include "libmath.h"
 #include <math.h>
 
-#define SPEED 8
+#define SPEED 64
+#define ROTATION 90
 
 static void	move(int key, t_env *env, t_win *win, t_cam *cam)
 {
+    int x_move;
+    int y_move;
+
 	if (key == FORWARD)
 	{
-		cam->x += cos(deg_to_rad(cam->orientation)) * SPEED;
-		cam->y -= sin(deg_to_rad(cam->orientation)) * SPEED;
+		x_move = cam->x + cos(deg_to_rad(cam->orientation)) * SPEED;
+		y_move = cam->y - sin(deg_to_rad(cam->orientation)) * SPEED;
+        cam->x = check_wall(x_move, cam->y, env->map) ? cam->x : x_move;
+        cam->y = check_wall(cam->x, y_move, env->map) ? cam->y : y_move;
 		raycasting(win, cam, env->map);
 		put_image(win);
 	}
 	else if (key == BACKWARD)
 	{
-		cam->x -= cos(deg_to_rad(cam->orientation)) * SPEED;
-		cam->y += sin(deg_to_rad(cam->orientation)) * SPEED;
+		x_move = cam->x - cos(deg_to_rad(cam->orientation)) * SPEED;
+		y_move = cam->y + sin(deg_to_rad(cam->orientation)) * SPEED;
+        cam->x = check_wall(x_move, cam->y, env->map) ? cam->x : x_move;
+        cam->y = check_wall(cam->x, y_move, env->map) ? cam->y : y_move;
 		raycasting(win, cam, env->map);
 		put_image(win);
 	}
     else if (key == LEFT)
     {
-		cam->x -= cos(deg_to_rad(cam->orientation - 90)) * SPEED;
-		cam->y += sin(deg_to_rad(cam->orientation - 90)) * SPEED;
+		x_move = cam->x - cos(deg_to_rad(cam->orientation - 90)) * SPEED;
+		y_move = cam->y + sin(deg_to_rad(cam->orientation - 90)) * SPEED;
+        cam->x = check_wall(x_move, cam->y, env->map) ? cam->x : x_move;
+        cam->y = check_wall(cam->x, y_move, env->map) ? cam->y : y_move;
 		raycasting(win, cam, env->map);
 		put_image(win);
     }
     else if (key == RIGHT)
     {
-		cam->x -= cos(deg_to_rad(cam->orientation + 90)) * SPEED;
-		cam->y += sin(deg_to_rad(cam->orientation + 90)) * SPEED;
+		x_move = cam->x - cos(deg_to_rad(cam->orientation + 90)) * SPEED;
+		y_move = cam->y + sin(deg_to_rad(cam->orientation + 90)) * SPEED;
+        cam->x = check_wall(x_move, cam->y, env->map) ? cam->x : x_move;
+        cam->y = check_wall(cam->x, y_move, env->map) ? cam->y : y_move;
 		raycasting(win, cam, env->map);
 		put_image(win);
     }
@@ -43,14 +55,14 @@ static void	rotation(int key, t_env *env, t_win *win, t_cam *cam)
 {
 	if (key == L_ROTATION)
 	{
-		cam->orientation += 8;
+		cam->orientation += ROTATION;
 		cam->orientation = cam->orientation > 360 ? - 360 : cam->orientation;
 		raycasting(win, cam, env->map);
 		put_image(win);
 	}
 	else if (key == R_ROTATION)
 	{
-		cam->orientation -= 8;
+		cam->orientation -= ROTATION;
 		cam->orientation = cam->orientation < -360 ? + 360 : cam->orientation;
 		raycasting(win, cam, env->map);
 		put_image(win);

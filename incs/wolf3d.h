@@ -30,6 +30,7 @@
 
 # include <stddef.h>
 # include <stdint.h>
+# include <stdbool.h>
 
 typedef	struct	s_cam
 {
@@ -85,6 +86,7 @@ char	**parsing(char *map_read);
 ** raycasting functions
 */
 void	raycasting(t_win *win, t_cam *cam, char **map);
+bool    check_wall(int x, int y, char **map);
 
 /*
 ** print functions
