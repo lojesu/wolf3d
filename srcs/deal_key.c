@@ -13,39 +13,40 @@ static void	move(int key, t_env *env, t_win *win, t_cam *cam)
     int x_move;
     int y_move;
 
+    printf("%i %i %i\n", cam->orientation, cam->x, cam->y);
 	if (key == FORWARD)
 	{
-		x_move = cam->x + cos(deg_to_rad(cam->orientation)) * SPEED;
-		y_move = cam->y - sin(deg_to_rad(cam->orientation)) * SPEED;
-        cam->x = check_wall(x_move, cam->y, env->map) ? cam->x : x_move;
-        cam->y = check_wall(cam->x, y_move, env->map) ? cam->y : y_move;
+		x_move = cos(deg_to_rad(cam->orientation)) * SPEED * 2;
+		y_move = sin(deg_to_rad(cam->orientation)) * SPEED * 2;
+        cam->x = check_wall(cam->x + x_move, cam->y, env->map) ? cam->x : cam->x + x_move / 2;
+        cam->y = check_wall(cam->x, cam->y - y_move, env->map) ? cam->y : cam->y - y_move / 2;
 		raycasting(win, cam, env->map);
 		put_image(win);
 	}
 	else if (key == BACKWARD)
 	{
-		x_move = cam->x - cos(deg_to_rad(cam->orientation)) * SPEED;
-		y_move = cam->y + sin(deg_to_rad(cam->orientation)) * SPEED;
-        cam->x = check_wall(x_move, cam->y, env->map) ? cam->x : x_move;
-        cam->y = check_wall(cam->x, y_move, env->map) ? cam->y : y_move;
+		x_move = cos(deg_to_rad(cam->orientation)) * SPEED * 2;
+		y_move = sin(deg_to_rad(cam->orientation)) * SPEED * 2;
+        cam->x = check_wall(cam->x - x_move, cam->y, env->map) ? cam->x : cam->x - x_move / 2;
+        cam->y = check_wall(cam->x, cam->y + y_move, env->map) ? cam->y : cam->y + y_move / 2;
 		raycasting(win, cam, env->map);
 		put_image(win);
 	}
     else if (key == LEFT)
     {
-		x_move = cam->x - cos(deg_to_rad(cam->orientation - 90)) * SPEED;
-		y_move = cam->y + sin(deg_to_rad(cam->orientation - 90)) * SPEED;
-        cam->x = check_wall(x_move, cam->y, env->map) ? cam->x : x_move;
-        cam->y = check_wall(cam->x, y_move, env->map) ? cam->y : y_move;
+		x_move = cos(deg_to_rad(cam->orientation - 90)) * SPEED * 2;
+		y_move = sin(deg_to_rad(cam->orientation - 90)) * SPEED * 2;
+        cam->x = check_wall(cam->x - x_move, cam->y, env->map) ? cam->x : cam->x - x_move / 2;
+        cam->y = check_wall(cam->x, cam->y + y_move, env->map) ? cam->y : cam->y + y_move / 2;
 		raycasting(win, cam, env->map);
 		put_image(win);
     }
     else if (key == RIGHT)
     {
-		x_move = cam->x - cos(deg_to_rad(cam->orientation + 90)) * SPEED;
-		y_move = cam->y + sin(deg_to_rad(cam->orientation + 90)) * SPEED;
-        cam->x = check_wall(x_move, cam->y, env->map) ? cam->x : x_move;
-        cam->y = check_wall(cam->x, y_move, env->map) ? cam->y : y_move;
+		x_move = cos(deg_to_rad(cam->orientation + 90)) * SPEED * 2;
+		y_move = sin(deg_to_rad(cam->orientation + 90)) * SPEED * 2;
+        cam->x = check_wall(cam->x - x_move, cam->y, env->map) ? cam->x : cam->x - x_move / 2;
+        cam->y = check_wall(cam->x, cam->y + y_move, env->map) ? cam->y : cam->y + y_move / 2;
 		raycasting(win, cam, env->map);
 		put_image(win);
     }
