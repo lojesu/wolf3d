@@ -86,7 +86,7 @@ char	**parsing(char *map_read);
 ** raycasting functions
 */
 void	raycasting(t_win *win, t_cam *cam, char **map);
-bool    check_wall(int x, int y, char **map);
+bool    check_wall(double x, double y, char **map);
 
 /*
 ** print functions
