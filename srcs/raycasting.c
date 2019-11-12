@@ -66,7 +66,7 @@ bool    check_wall(double x, double y, char **map)
                 return (map[(int)y / 64][(int)x / 64] == '1');
 }
 
-size_t	dist_horizontal(t_cam *cam, char **map, double angle, int8_t y_oriented)
+int	dist_horizontal(t_cam *cam, char **map, double angle, int8_t y_oriented)
 {
 	double	xa;
 	double	x;
@@ -84,10 +84,10 @@ size_t	dist_horizontal(t_cam *cam, char **map, double angle, int8_t y_oriented)
 		x += x_oriented * xa;
 		y += y_oriented * 64;
 	}
-	return ((size_t)hypot(x - cam->x, y - cam->y));
+	return ((int)hypot(x - cam->x, y - cam->y));
 }
 
-size_t	dist_vertical(t_cam *cam, char **map, double angle, int8_t x_oriented)
+int	dist_vertical(t_cam *cam, char **map, double angle, int8_t x_oriented)
 {
 	double	ya;
 	double	y;
@@ -105,15 +105,15 @@ size_t	dist_vertical(t_cam *cam, char **map, double angle, int8_t x_oriented)
 		y += y_oriented * ya;
 		x += x_oriented * 64;
 	}
-	return ((size_t)hypot(x - cam->x, y - cam->y));
+	return ((int)hypot(x - cam->x, y - cam->y));
 }
 
-size_t	find_dist_wall(t_cam *cam, char **map, size_t column)
+int 	find_dist_wall(t_cam *cam, char **map, size_t column)
 {
 	double	angle;
 	int8_t	oriented;
-	size_t	dist_h;
-	size_t	dist_v;
+	int 	dist_h;
+	int 	dist_v;
 
 	angle = ANGLE(cam->orientation, (double)column);
 	angle = angle < 0 ? angle + 360 : angle;
@@ -123,19 +123,22 @@ size_t	find_dist_wall(t_cam *cam, char **map, size_t column)
 	dist_h = dist_horizontal(cam, map, angle, oriented) * TRUE_DIST;
 	oriented = angle > 90 && angle < 270 ? -1 : 1;
 	dist_v = dist_vertical(cam, map, angle, oriented) * TRUE_DIST;
+
 	return (dist_h < dist_v ? dist_h : dist_v);
 }
 
 void	raycasting(t_win *win, t_cam *cam, char **map)
 {
 	size_t	column;
-	size_t	size_wall;
+	int 	size_wall;
+    int     pos;
 
 	column = 0;
 	while (column < WIDTH)
 	{
 		size_wall = DIST_SCREEN * FRAME / find_dist_wall(cam, map, column);
-		print_column(win, size_wall, column);
+		print_column(win, size_wall, column, cam);
 		++column;
 	}
+        print_mini_map(cam, map, win);
 }

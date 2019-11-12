@@ -27,6 +27,8 @@
 # define RIGHT 2
 # define L_ROTATION 123
 # define R_ROTATION 124
+# define UP 126
+# define DOWN 125
 
 # include <stddef.h>
 # include <stdint.h>
@@ -37,6 +39,8 @@ typedef	struct	s_cam
 	int32_t		x;
 	int32_t		y;
 	int32_t		orientation;
+        int32_t         angle;
+        bool            mini_map;
 
 }				t_cam;
 
@@ -91,7 +95,8 @@ bool    check_wall(double x, double y, char **map);
 /*
 ** print functions
 */
-void	print_column(t_win *win, size_t	size_wall, size_t column);
+void	print_column(t_win *win, int size_wall, size_t column, t_cam *cam);
 void	put_pixel(t_win *win, size_t x, size_t y, int color);
+void    print_mini_map(t_cam *cam, char **map, t_win *win);
 
 #endif
