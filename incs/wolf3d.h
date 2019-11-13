@@ -109,7 +109,7 @@ bool    special_bloc(t_win *win, t_cam *cam, char **map);
 ** Mini Map functions
 */
 int     give_color(char **map, int x, int y, t_cam *cam);
-void    outline_mini_map(t_win *win);
+void    outline_mini_map(t_win *win, int x_center, int y_center);
 void    put_player(t_win *win);
 
 /*
