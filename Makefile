@@ -13,7 +13,19 @@ INCDIR		= ./incs/ ./libft/ ./minilibx_macos/ ./libmath/
 
 # Source files (Can be changed)
 
-SRC			= deal_key.c image.c init.c main.c parsing.c print.c put_pixel.c read_file.c raycasting.c
+SRC			= deal_key.c	\
+			image.c		\
+			init.c		\
+			main.c		\
+			parsing.c	\
+			print.c		\
+			put_pixel.c	\
+			read_file.c	\
+			raycasting.c	\
+			raycastool.c	\
+			mini_map.c	\
+			speedwalk.c
+
 
 LFT			= ./libft/libft.a
 LMTH		= ./libmath/libmath.a

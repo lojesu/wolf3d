@@ -30,6 +30,7 @@
 # define UP 126
 # define DOWN 125
 # define TAB 48
+# define RESET 15
 
 # include <stddef.h>
 # include <stdint.h>
@@ -96,6 +97,20 @@ char	**parsing(char *map_read);
 void	raycasting(t_win *win, t_cam *cam, char **map);
 void    pre_raycasting(t_env *env);
 bool    check_wall(double x, double y, char **map);
+void    trans_hori(t_cam *cam, double angle, double *x, double *y);
+void    trans_vert(t_cam *cam, double angle, double *x, double *y);
+
+/*
+** SpeedWalk functions
+*/
+bool    special_bloc(t_win *win, t_cam *cam, char **map);
+
+/*
+** Mini Map functions
+*/
+int     give_color(char **map, int x, int y, t_cam *cam);
+void    outline_mini_map(t_win *win);
+void    put_player(t_win *win);
 
 /*
 ** print functions

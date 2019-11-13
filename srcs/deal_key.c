@@ -60,6 +60,14 @@ void	    move(int key, char **map, t_win *win, t_cam *cam)
 		raycasting(win, cam, map);
 		put_image(win);
     }
+    else if (key == RESET)
+    {
+        key = cam->mini_map;
+        *cam = init_cam(map);
+        cam->mini_map = key;
+		raycasting(win, cam, map);
+		put_image(win);
+    }
 }
 
 static void	rotation(int key, t_env *env, t_win *win, t_cam *cam)

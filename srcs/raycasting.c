@@ -2,72 +2,10 @@
 #include "libmath.h"
 #include "libft.h"
 #include <math.h>
-#include <stdbool.h>
-#include <unistd.h>
 
 #define ANGLE(ori, col) ori + VISUAL_FIELD / 2 - col * VISUAL_FIELD / WIDTH
 
-void    trans_vert(t_cam *cam, double angle, double *x, double *y)
-{
-    if (angle > 90 && angle < 270)
-    {
-        *x = cam->x / 64 * 64;
-        *y = cam->y + tan(deg_to_rad(angle - 180)) * ABS((cam->x - *x));
-    }
-    else if (angle < 90)
-    {
-        *x = cam->x / 64 * 64 + 64;
-        *y = cam->y - tan(deg_to_rad(angle)) * ABS((cam->x - *x));
-    }
-    else
-    {
-        *x = cam->x / 64 * 64 + 64;
-        *y = cam->y + tan(deg_to_rad(ABS((angle - 360)))) * ABS((cam->x - *x));
-    }
-}
-
-void    trans_hori(t_cam *cam, double angle, double *x, double *y)
-{
-    if (angle > 180  && angle < 360)
-    {
-        *y = cam->y / 64 * 64 + 64;
-        *x = cam->x + tan(deg_to_rad(angle - 270)) * ABS((cam->y - *y));
-    }
-    else
-    {
-        *y = cam->y / 64 * 64;
-        *x = cam->x + tan(deg_to_rad(90 - angle)) * ABS((cam->y - *y));
-    }
-}
-
-
-bool    check_wall(double x, double y, char **map)
-{
-        if (x < 0 || x / 64 >= ft_strlen(map[0]) ||
-                        y < 0 || y / 64 >= ft_strlen_len(map))
-               return (false);
-        if (fmod(x, 64) == 0 && fmod(y, 64) == 0)
-                return ( 
-                            map[((int)y - 1) / 64][((int)x - 1) / 64] == '1' ||
-                            map[((int)y - 1) / 64][((int)x + 1) / 64] == '1' ||
-                            map[((int)y + 1) / 64][((int)x + 1) / 64] == '1' ||
-                            map[((int)y + 1) / 64][((int)x - 1) / 64] == '1'
-                        );
-        else if (fmod(x, 64) == 0)
-                return (
-                            map[(int)y / 64][((int)x - 1)/64] == '1' ||
-                            map[(int)y / 64][((int)x + 1)/64] == '1'
-                       );
-        else if (fmod(y, 64) == 0)
-                return (
-                            map[((int)y - 1) / 64][(int)x / 64] == '1' ||
-                            map[((int)y + 1) / 64][(int)x / 64] == '1'
-                       );
-        else
-                return (map[(int)y / 64][(int)x / 64] == '1');
-}
-
-int	dist_horizontal(t_cam *cam, char **map, double angle, int8_t y_oriented)
+double	dist_horizontal(t_cam *cam, char **map, double angle, int8_t y_oriented)
 {
 	double	xa;
 	double	x;
@@ -85,10 +23,10 @@ int	dist_horizontal(t_cam *cam, char **map, double angle, int8_t y_oriented)
 		x += x_oriented * xa;
 		y += y_oriented * 64;
 	}
-	return ((int)hypot(x - cam->x, y - cam->y));
+	return (hypot(x - cam->x, y - cam->y));
 }
 
-int	dist_vertical(t_cam *cam, char **map, double angle, int8_t x_oriented)
+double	dist_vertical(t_cam *cam, char **map, double angle, int8_t x_oriented)
 {
 	double	ya;
 	double	y;
@@ -106,15 +44,15 @@ int	dist_vertical(t_cam *cam, char **map, double angle, int8_t x_oriented)
 		y += y_oriented * ya;
 		x += x_oriented * 64;
 	}
-	return ((int)hypot(x - cam->x, y - cam->y));
+	return (hypot(x - cam->x, y - cam->y));
 }
 
-int 	find_dist_wall(t_cam *cam, char **map, size_t column)
+double  find_dist_wall(t_cam *cam, char **map, size_t column)
 {
 	double	angle;
 	int8_t	oriented;
-	int 	dist_h;
-	int 	dist_v;
+	double	dist_h;
+	double	dist_v;
 
 	angle = ANGLE(cam->orientation, (double)column);
 	angle = angle < 0 ? angle + 360 : angle;
@@ -128,48 +66,13 @@ int 	find_dist_wall(t_cam *cam, char **map, size_t column)
 	return (dist_h < dist_v ? dist_h : dist_v);
 }
 
-#define SPEED 4
-
-bool    special_bloc(t_win *win, t_cam *cam, char **map)
-{
-    if (cam->y < 0 || cam->y / 64 >= ft_strlen_len(map) ||
-        cam->x < 0 || cam->x / 64 >= ft_strlen(map[0]))
-        quit_window(win, map);
-    put_image(win);
-    if (map[cam->y / 64][cam->x / 64] == '2')
-    {
-        cam->x += map[cam->y / 64][(cam->x + SPEED + 1) / 64] == '1' ? 0 : SPEED;
-        cam->lock = true;
-    }
-    else if (map[cam->y / 64][cam->x / 64] == '3')
-    {
-        cam->x -= map[cam->y / 64][(cam->x - SPEED - 1) / 64] == '1' ? 0 : SPEED;
-        cam->lock = true;
-    }
-    else if (map[cam->y / 64][cam->x / 64] == '4')
-    {
-        cam->y += map[(cam->y + SPEED + 1) / 64][cam->x / 64] == '1' ? 0 : SPEED;
-        cam->lock = true;
-    }
-    else if (map[cam->y / 64][cam->x / 64] == '5')
-    {
-        cam->y -= map[(cam->y - SPEED - 1) / 64][cam->x / 64] == '1' ? 0 : SPEED;
-        cam->lock = true;
-    }
-    else
-    {
-        cam->lock = false;
-        return (false);
-    }
-    return (true);
-}
-
 void	raycasting(t_win *win, t_cam *cam, char **map)
 {
 	size_t	column;
 	int 	size_wall;
     int     pos;
 
+    special_bloc(win, cam, map);
 	column = 0;
     if (cam->y < 0 || cam->y / 64 >= ft_strlen_len(map) ||
         cam->x < 0 || cam->x / 64 >= ft_strlen(map[0]) ||
@@ -184,10 +87,3 @@ void	raycasting(t_win *win, t_cam *cam, char **map)
     if (cam->mini_map)
         print_mini_map(cam, map, win);
 }
-
-void    pre_raycasting(t_env *env)
-{
-    if (special_bloc(&env->win, &env->cam, env->map))
-        raycasting(&env->win, &env->cam, env->map);
-}
-
