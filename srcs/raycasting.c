@@ -3,6 +3,7 @@
 #include "libft.h"
 #include <math.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 #define ANGLE(ori, col) ori + VISUAL_FIELD / 2 - col * VISUAL_FIELD / WIDTH
 
@@ -127,6 +128,42 @@ int 	find_dist_wall(t_cam *cam, char **map, size_t column)
 	return (dist_h < dist_v ? dist_h : dist_v);
 }
 
+#define SPEED 4
+
+bool    special_bloc(t_win *win, t_cam *cam, char **map)
+{
+    if (cam->y < 0 || cam->y / 64 >= ft_strlen_len(map) ||
+        cam->x < 0 || cam->x / 64 >= ft_strlen(map[0]))
+        quit_window(win, map);
+    put_image(win);
+    if (map[cam->y / 64][cam->x / 64] == '2')
+    {
+        cam->x += map[cam->y / 64][(cam->x + SPEED + 1) / 64] == '1' ? 0 : SPEED;
+        cam->lock = true;
+    }
+    else if (map[cam->y / 64][cam->x / 64] == '3')
+    {
+        cam->x -= map[cam->y / 64][(cam->x - SPEED - 1) / 64] == '1' ? 0 : SPEED;
+        cam->lock = true;
+    }
+    else if (map[cam->y / 64][cam->x / 64] == '4')
+    {
+        cam->y += map[(cam->y + SPEED + 1) / 64][cam->x / 64] == '1' ? 0 : SPEED;
+        cam->lock = true;
+    }
+    else if (map[cam->y / 64][cam->x / 64] == '5')
+    {
+        cam->y -= map[(cam->y - SPEED - 1) / 64][cam->x / 64] == '1' ? 0 : SPEED;
+        cam->lock = true;
+    }
+    else
+    {
+        cam->lock = false;
+        return (false);
+    }
+    return (true);
+}
+
 void	raycasting(t_win *win, t_cam *cam, char **map)
 {
 	size_t	column;
@@ -134,11 +171,23 @@ void	raycasting(t_win *win, t_cam *cam, char **map)
     int     pos;
 
 	column = 0;
+    if (cam->y < 0 || cam->y / 64 >= ft_strlen_len(map) ||
+        cam->x < 0 || cam->x / 64 >= ft_strlen(map[0]) ||
+                map[cam->y / 64][cam->x /64] == '8')
+        quit_window(win, map);
 	while (column < WIDTH)
 	{
 		size_wall = DIST_SCREEN * FRAME / find_dist_wall(cam, map, column);
 		print_column(win, size_wall, column, cam);
 		++column;
 	}
+    if (cam->mini_map)
         print_mini_map(cam, map, win);
 }
+
+void    pre_raycasting(t_env *env)
+{
+    if (special_bloc(&env->win, &env->cam, env->map))
+        raycasting(&env->win, &env->cam, env->map);
+}
+

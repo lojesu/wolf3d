@@ -8,7 +8,7 @@ import sys
 EMPTY = '0'
 WALL = '1'
 AGENT = '9'
-GOAL = '5'
+GOAL = '8'
 
 def adjacent(cell):
   i,j = cell

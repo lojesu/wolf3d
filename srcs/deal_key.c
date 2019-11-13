@@ -1,9 +1,10 @@
 #include "wolf3d.h"
 #include <stdlib.h>
 #include "mlx.h"
-#include "wolf3d.h"
 #include "libmath.h"
 #include <math.h>
+#include <libft.h>
+
 
 #define SPEED 8
 #define ROTATION 8
@@ -14,6 +15,8 @@ static void move_direction(t_cam *cam, char **map, int dir)
     int y_move;
     int new_angle;
 
+    if (cam->lock)
+        return ;
     new_angle = cam->orientation + dir;
     new_angle = new_angle > 360 ? new_angle - 360 : new_angle;
     new_angle = new_angle < 0 ? new_angle + 360 : new_angle;
@@ -25,30 +28,36 @@ static void move_direction(t_cam *cam, char **map, int dir)
         cam->y : cam->y - y_move / 2;
 }
 
-static void	move(int key, t_env *env, t_win *win, t_cam *cam)
+void	    move(int key, char **map, t_win *win, t_cam *cam)
 {
 	if (key == FORWARD)
 	{
-        move_direction(cam, env->map, 0);
-		raycasting(win, cam, env->map);
+        move_direction(cam, map, 0);
+		raycasting(win, cam, map);
 		put_image(win);
 	}
 	else if (key == BACKWARD)
 	{
-        move_direction(cam, env->map, 180);
-		raycasting(win, cam, env->map);
+        move_direction(cam, map, 180);
+		raycasting(win, cam, map);
 		put_image(win);
 	}
     else if (key == LEFT)
     {
-        move_direction(cam, env->map, 90);
-		raycasting(win, cam, env->map);
+        move_direction(cam, map, 90);
+		raycasting(win, cam, map);
 		put_image(win);
     }
     else if (key == RIGHT)
     {
-        move_direction(cam, env->map, -90);
-		raycasting(win, cam, env->map);
+        move_direction(cam, map, -90);
+		raycasting(win, cam, map);
+		put_image(win);
+    }
+    else if (key == TAB)
+    {
+        cam->mini_map = !cam->mini_map;
+		raycasting(win, cam, map);
 		put_image(win);
     }
 }
@@ -89,20 +98,19 @@ static void	rotation(int key, t_env *env, t_win *win, t_cam *cam)
 	}
 }
 
+void    quit_window(t_win *win, char **map)
+{
+	clear_window(win);
+	mlx_destroy_window(MLX_PTR, WIN_PTR);
+    ft_tabdel_char(&map);
+	exit(1);
+}
+
 int		deal_key(int key, t_env *env)
 {
-	t_win	*win;
-	t_cam	*cam;
-
-	win = &(env->win);
-	cam = &(env->cam);
-	rotation(key, env, win, cam);
-	move(key, env, win, cam);
+	rotation(key, env, &env->win, &env->cam);
+	move(key, env->map, &env->win, &env->cam);
 	if (key == ESC)
-	{
-		clear_window(win);
-		mlx_destroy_window(MLX_PTR, WIN_PTR);
-		exit(1);
-	}
+        quit_window(&env->win, env->map);
 	return (0);
 }

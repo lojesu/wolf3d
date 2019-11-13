@@ -1,8 +1,8 @@
 #ifndef WOLF3D_H
 # define WOLF3D_H
 
-# define WIDTH 640
-# define HEIGHT 480
+# define WIDTH 1080
+# define HEIGHT 810
 
 # define DIST_SCREEN (int)((WIDTH / 2) / tan(deg_to_rad(30)))
 # define TRUE_DIST (cos(deg_to_rad(((double)column) * VISUAL_FIELD / WIDTH - 30)))
@@ -29,6 +29,7 @@
 # define R_ROTATION 124
 # define UP 126
 # define DOWN 125
+# define TAB 48
 
 # include <stddef.h>
 # include <stdint.h>
@@ -41,6 +42,7 @@ typedef	struct	s_cam
 	int32_t		orientation;
         int32_t         angle;
         bool            mini_map;
+        bool            lock;
 
 }				t_cam;
 
@@ -69,16 +71,18 @@ void		init_mlx(t_win *win);
 t_cam		init_cam(char **map);
 
 /*
-** image management functions
+** image/window management functions
 */
 void		new_image(t_win *win);
 void		put_image(t_win *win);
 void		clear_window(t_win *win);
+void            quit_window(t_win *win, char **map);
 
 /*
 ** functions that manage keys on the keyboard
 */
 int			deal_key(int key, t_env *env);
+void                    move(int key, char **map, t_win *win, t_cam *cam);
 
 /*
 ** parsing functions
@@ -90,6 +94,7 @@ char	**parsing(char *map_read);
 ** raycasting functions
 */
 void	raycasting(t_win *win, t_cam *cam, char **map);
+void    pre_raycasting(t_env *env);
 bool    check_wall(double x, double y, char **map);
 
 /*
