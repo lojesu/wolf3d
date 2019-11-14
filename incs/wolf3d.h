@@ -42,8 +42,9 @@ typedef	struct	s_cam
 	int32_t		y;
 	int32_t		orientation;
         int32_t         angle;
-        bool            mini_map;
+        uint8_t            mini_map;
         bool            lock;
+        bool            button;
 
 }				t_cam;
 
@@ -109,8 +110,9 @@ bool    special_bloc(t_win *win, t_cam *cam, char **map);
 ** Mini Map functions
 */
 int     give_color(char **map, int x, int y, t_cam *cam);
-void    outline_mini_map(t_win *win, int x_center, int y_center);
+void    outline_mini_map(t_win *win, int type);
 void    put_player(t_win *win);
+void    bresenham(t_win *win, int p1[2], int p2[2]);
 
 /*
 ** print functions

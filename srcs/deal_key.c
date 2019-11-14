@@ -56,7 +56,8 @@ void	    move(int key, char **map, t_win *win, t_cam *cam)
     }
     else if (key == TAB)
     {
-        cam->mini_map = !cam->mini_map;
+        cam->mini_map = cam->mini_map + 1;
+        cam->mini_map = cam->mini_map == 3 ? 0 : cam->mini_map;
 		raycasting(win, cam, map);
 		put_image(win);
     }

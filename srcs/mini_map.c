@@ -1,13 +1,16 @@
 #include "wolf3d.h"
 #include <libft.h>
 #include <math.h>
+#include <libmath.h>
 
 #define CELL_SIZE 32
 #define CELL_NB 3
 #define PLAYER_SIZE (CELL_SIZE / 4 + 2)
+#define PLAYER (MAP_SIZE / 2 - PLAYER_SIZE / 2 + MAP_POS + 1 + PLAYER_SIZE / 2)
 #define MAP_POS 15
 #define MAP_SIZE ((CELL_SIZE + 1) * (CELL_NB * 2 + 1) - CELL_NB * 2)
 #define CALC(a, b) (a + b * FRAME/CELL_SIZE - CELL_NB* 64 - 32)
+#define FOV_SIZE (CELL_SIZE / 3.5)
 
 int      give_color(char **map, int x, int y, t_cam *cam)
 {
@@ -15,30 +18,38 @@ int      give_color(char **map, int x, int y, t_cam *cam)
 
     if (y < 0 || y / 64 >= ft_strlen_len(map) ||
                     x < 0 || x / 64 >= ft_strlen(map[0]))
-        id = 'X';
+        return (0x0);
     else
         id = map[y / 64][x / 64];
-    if (id == '1')
-        return (0xff0044);
-    else if (id == '0')
+    if (id == '0')
         return (0xc8c8c8);
-    else if (id == '9')
-        return (0xffff00);
+    else if (id == '1')
+        return (0xff0044);
+    else if (id == '2')
+        return (0xff5050);
+    else if (id == '3')
+        return (0x6600ff);
+    else if (id == '6')
+        return (0x00ccff);
+    else if (id == '7')
+        return (0x9933ff);
     else if (id == '8')
         return (0x66ff33);
-    else if (id == '2')
+    else if (id == '9')
+        return (0xffff00);
+    else if (id == 'R')
         return (0x800000);
-    else if (id == '3')
+    else if (id == 'L')
         return (0x993333);
-    else if (id == '4')
+    else if (id == 'D')
         return (0x996633);
-    else if (id == '5')
+    else if (id == 'U')
         return (0x663300);
     else
         return (0x0);
 }
 
-void     outline_mini_map(t_win *win, int x_center, int y_center)
+void     outline_mini_map_circle(t_win *win, int x_center, int y_center)
 {
     size_t x;
     size_t y;
@@ -66,12 +77,15 @@ void     outline_mini_map(t_win *win, int x_center, int y_center)
 		m = m + 8 * x + 4;
     }
 }
-/*
-void outline_mini_map(t_win *win)
+
+void outline_mini_map(t_win *win, int type)
 {
     int x;
     int y;
 
+    if (type == 1)
+        return (outline_mini_map_circle(win, MAP_POS + (MAP_SIZE) / 2,
+                        MAP_POS + (MAP_SIZE) / 2));
     y = MAP_POS - 2;
     while (y < MAP_POS + MAP_SIZE + 2)
     {
@@ -86,7 +100,7 @@ void outline_mini_map(t_win *win)
         ++y;
     }
 }
-*/
+
 void put_player(t_win *win)
 {
         int y;
@@ -118,6 +132,28 @@ bool    in_circle(int x, int y)
         return (hypot(ABS((x - center)), ABS((y - center))) < rayon);
 }
 
+void    put_fov(t_win *win, int orientation)
+{
+    size_t i;
+    int angle;
+    int p0[2];
+    int p1[2];
+
+    i = 0;
+    while (i <  100)
+    {
+        p0[0] = cos(deg_to_rad(orientation)) * FOV_SIZE + PLAYER;
+        p0[1] = -sin(deg_to_rad(orientation)) * FOV_SIZE + PLAYER;
+        angle = orientation + i - 50;
+        angle = angle > 360 ? angle - 360 : angle;
+        angle = angle < 0 ? angle + 360 : angle;
+        p1[0] = -cos(deg_to_rad(angle)) * FOV_SIZE + PLAYER;
+        p1[1] = sin(deg_to_rad(angle)) * FOV_SIZE + PLAYER;
+        bresenham(win, p0, p1);
+        ++i;
+    }
+}
+
 void    print_mini_map(t_cam *cam, char **map, t_win *win)
 {
     int x;
@@ -145,7 +181,7 @@ void    print_mini_map(t_cam *cam, char **map, t_win *win)
                 ++x;
                 continue ;
             }
-            if (in_circle(x + MAP_POS, y + MAP_POS))
+            if (in_circle(x + MAP_POS, y + MAP_POS) || cam->mini_map == 2)
                 put_pixel(win, x + MAP_POS, y + MAP_POS,
                     give_color(map, CALC(cam->x, x),
                         CALC(cam->y, y), cam));
@@ -155,6 +191,6 @@ void    print_mini_map(t_cam *cam, char **map, t_win *win)
         yi = CALC(cam->y, y);
         ++y;
     }
-    put_player(win);
-    outline_mini_map(win, MAP_POS + (MAP_SIZE) / 2, MAP_POS + (MAP_SIZE) / 2);
+    outline_mini_map(win, cam->mini_map);
+    put_fov(win, cam->orientation);
 }

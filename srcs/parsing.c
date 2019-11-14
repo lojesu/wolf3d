@@ -33,8 +33,8 @@ static void	verif_character(char *line, char **map)
 	i = 0;
 	while (i < line_size)
 	{
-		if (!ft_isdigit(line[i]))
-			error("Error: non digit character founded", map);
+		if (!ft_isalnum(line[i]))
+			error("Error: non digit/alpha character founded", map);
 		i++;
 	}
 }

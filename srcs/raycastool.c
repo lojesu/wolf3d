@@ -48,18 +48,27 @@ bool    check_wall(double x, double y, char **map)
                             map[((int)y - 1) / 64][((int)x - 1) / 64] == '1' ||
                             map[((int)y - 1) / 64][((int)x + 1) / 64] == '1' ||
                             map[((int)y + 1) / 64][((int)x + 1) / 64] == '1' ||
-                            map[((int)y + 1) / 64][((int)x - 1) / 64] == '1'
+                            map[((int)y + 1) / 64][((int)x - 1) / 64] == '1' ||
+                            map[((int)y - 1) / 64][((int)x - 1) / 64] == '2' ||
+                            map[((int)y - 1) / 64][((int)x + 1) / 64] == '2' ||
+                            map[((int)y + 1) / 64][((int)x + 1) / 64] == '2' ||
+                            map[((int)y + 1) / 64][((int)x - 1) / 64] == '2'
                         );
         else if (fmod(x, 64) == 0)
                 return (
                             map[(int)y / 64][((int)x - 1)/64] == '1' ||
-                            map[(int)y / 64][((int)x + 1)/64] == '1'
+                            map[(int)y / 64][((int)x + 1)/64] == '1' ||
+                            map[(int)y / 64][((int)x - 1)/64] == '2' ||
+                            map[(int)y / 64][((int)x + 1)/64] == '2'
                        );
         else if (fmod(y, 64) == 0)
                 return (
                             map[((int)y - 1) / 64][(int)x / 64] == '1' ||
-                            map[((int)y + 1) / 64][(int)x / 64] == '1'
+                            map[((int)y + 1) / 64][(int)x / 64] == '1' ||
+                            map[((int)y - 1) / 64][(int)x / 64] == '2' ||
+                            map[((int)y + 1) / 64][(int)x / 64] == '2'
                        );
         else
-                return (map[(int)y / 64][(int)x / 64] == '1');
+                return (map[(int)y / 64][(int)x / 64] == '1' ||
+                                map[(int)y / 64][(int)x / 64] == '2');
 }

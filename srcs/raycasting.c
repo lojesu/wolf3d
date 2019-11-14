@@ -62,7 +62,6 @@ double  find_dist_wall(t_cam *cam, char **map, size_t column)
 	dist_h = dist_horizontal(cam, map, angle, oriented) * TRUE_DIST;
 	oriented = angle > 90 && angle < 270 ? -1 : 1;
 	dist_v = dist_vertical(cam, map, angle, oriented) * TRUE_DIST;
-
 	return (dist_h < dist_v ? dist_h : dist_v);
 }
 
@@ -76,7 +75,7 @@ void	raycasting(t_win *win, t_cam *cam, char **map)
 	column = 0;
     if (cam->y < 0 || cam->y / 64 >= ft_strlen_len(map) ||
         cam->x < 0 || cam->x / 64 >= ft_strlen(map[0]) ||
-                map[cam->y / 64][cam->x /64] == '8')
+                (map[cam->y / 64][cam->x /64] == '8' && cam->button == true))
         quit_window(win, map);
 	while (column < WIDTH)
 	{
