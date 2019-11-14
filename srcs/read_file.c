@@ -15,9 +15,11 @@ static void get_help(char *map)
     free(map);
     ft_putstr("Usage: ./wolf3d map [-h,--help]\n===================\nIn Game:\n"
                     "  - [W,A,S,D] ... move forward/left/down/right\n"
-                    "  - arrows ...... turn the camera\n"
+                    "  - arrows ...... move the camera\n"
                     "  - R ........... reset\n"
                     "  - TAB ......... open/close mini-map\n"
+                    "  - M ........... open/close map\n"
+                    "  - [8,4,5,6] ... move the map\n"
                     "  - ESC ......... quit the game\n");
     exit(1);
 }

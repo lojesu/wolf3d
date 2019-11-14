@@ -12,7 +12,16 @@
 #define CALC(a, b) (a + b * FRAME/CELL_SIZE - CELL_NB* 64 - 32)
 #define FOV_SIZE (CELL_SIZE / 3.5)
 
-int      give_color(char **map, int x, int y, t_cam *cam)
+#define BMAP_POS 40
+#define BMAP_WIDTH ((WIDTH - BMAP_POS)/(CELL_SIZE+1) - BMAP_POS/(CELL_SIZE+1))
+#define BMAP_WPOS1 (int)((BMAP_WIDTH - ft_strlen(map[0]))/2)
+#define BMAP_WPOS (BMAP_WPOS1 > 0 ? BMAP_WPOS1 : 0)
+#define BMAP_HEIGHT ((HEIGHT - BMAP_POS)/(CELL_SIZE+1) - BMAP_POS/(CELL_SIZE+1))
+#define BMAP_HPOS1 (int)((BMAP_HEIGHT - ft_strlen_len(map))/2)
+#define BMAP_HPOS (BMAP_HPOS1 > 0 ? BMAP_HPOS1 : 0)
+#define BMAP_PLAYER(a) ((double)a / FRAME * CELL_SIZE + BMAP_POS)
+
+int      give_color(char **map, int x, int y)
 {
     char id;
 
@@ -132,26 +141,68 @@ bool    in_circle(int x, int y)
         return (hypot(ABS((x - center)), ABS((y - center))) < rayon);
 }
 
-void    put_fov(t_win *win, int orientation)
+void    put_fov(t_win *win, int orientation, t_cam *cam)
 {
     size_t i;
     int angle;
-    int p0[2];
-    int p1[2];
+    double p0[2];
+    double p1[2];
 
     i = 0;
     while (i <  100)
     {
-        p0[0] = cos(deg_to_rad(orientation)) * FOV_SIZE + PLAYER;
-        p0[1] = -sin(deg_to_rad(orientation)) * FOV_SIZE + PLAYER;
+        p0[0] = cos(deg_to_rad(orientation)) * FOV_SIZE + (cam->map == 1 ? BMAP_PLAYER(cam->x) : PLAYER);
+        p0[1] = -sin(deg_to_rad(orientation)) * FOV_SIZE + (cam->map == 1 ? BMAP_PLAYER(cam->y) : PLAYER);
         angle = orientation + i - 50;
         angle = angle > 360 ? angle - 360 : angle;
         angle = angle < 0 ? angle + 360 : angle;
-        p1[0] = -cos(deg_to_rad(angle)) * FOV_SIZE + PLAYER;
-        p1[1] = sin(deg_to_rad(angle)) * FOV_SIZE + PLAYER;
+        p1[0] = -cos(deg_to_rad(angle)) * FOV_SIZE + (cam->map == 1 ? BMAP_PLAYER(cam->x): PLAYER);
+        p1[1] = sin(deg_to_rad(angle)) * FOV_SIZE + (cam->map == 1 ? BMAP_PLAYER(cam->y): PLAYER);
         bresenham(win, p0, p1);
         ++i;
     }
+}
+
+void    put_cell(t_win *win, int x, int y, int color)
+{
+    int xi;
+    int yi;
+
+    yi = y;
+    while (yi < y + CELL_SIZE)
+    {
+        xi = x;
+        while (xi < x + CELL_SIZE)
+        {
+            put_pixel(win, xi, yi, color);
+            ++xi;
+        }
+        ++yi;
+    }
+    xi = x;
+    yi = y;
+}
+
+void    big_map(t_win *win, t_cam *cam, char **map)
+{
+    int x;
+    int y;
+
+    y = 0;
+    while (y < BMAP_HEIGHT - BMAP_HPOS * 2)
+    {
+            x = 0;
+            while (x < BMAP_WIDTH - BMAP_WPOS * 2)
+            {
+                put_cell(win,
+                        x * (CELL_SIZE + 1) + BMAP_WPOS * CELL_SIZE + BMAP_POS,
+                        y * (CELL_SIZE + 1) + BMAP_HPOS * CELL_SIZE + BMAP_POS,
+                    give_color(map, (x + cam->bmapx) * 64, (y + cam->bmapy) * 64));
+                ++x;
+            }
+            ++y;
+    }
+    put_fov(win, cam->orientation, cam);
 }
 
 void    print_mini_map(t_cam *cam, char **map, t_win *win)
@@ -163,6 +214,10 @@ void    print_mini_map(t_cam *cam, char **map, t_win *win)
 
     y = 0;
     yi = 0;
+    if (cam->map == 1)
+            return (big_map(win, cam, map));
+    else if (cam->mini_map == 0)
+            return ;
     while (y < MAP_SIZE)
     {
         if (CALC(cam->y, y) / 64 > yi / 64)
@@ -184,7 +239,7 @@ void    print_mini_map(t_cam *cam, char **map, t_win *win)
             if (in_circle(x + MAP_POS, y + MAP_POS) || cam->mini_map == 2)
                 put_pixel(win, x + MAP_POS, y + MAP_POS,
                     give_color(map, CALC(cam->x, x),
-                        CALC(cam->y, y), cam));
+                        CALC(cam->y, y)));
             xi = CALC(cam->x, x);
             ++x;
         }
@@ -192,5 +247,5 @@ void    print_mini_map(t_cam *cam, char **map, t_win *win)
         ++y;
     }
     outline_mini_map(win, cam->mini_map);
-    put_fov(win, cam->orientation);
+    put_fov(win, cam->orientation, cam);
 }

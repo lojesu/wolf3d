@@ -83,6 +83,5 @@ void	raycasting(t_win *win, t_cam *cam, char **map)
 		print_column(win, size_wall, column, cam);
 		++column;
 	}
-    if (cam->mini_map)
-        print_mini_map(cam, map, win);
+    print_mini_map(cam, map, win);
 }

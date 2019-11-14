@@ -1,8 +1,8 @@
 #ifndef WOLF3D_H
 # define WOLF3D_H
 
-# define WIDTH 1080
-# define HEIGHT 810
+# define WIDTH 1333
+# define HEIGHT 1000
 
 # define DIST_SCREEN (int)((WIDTH / 2) / tan(deg_to_rad(30)))
 # define TRUE_DIST (cos(deg_to_rad(((double)column) * VISUAL_FIELD / WIDTH - 30)))
@@ -31,6 +31,12 @@
 # define DOWN 125
 # define TAB 48
 # define RESET 15
+# define MAP 46
+# define UP_MAP 91
+# define DOWN_MAP 87
+# define LEFT_MAP 86
+# define RIGHT_MAP 88
+
 
 # include <stddef.h>
 # include <stdint.h>
@@ -42,7 +48,10 @@ typedef	struct	s_cam
 	int32_t		y;
 	int32_t		orientation;
         int32_t         angle;
-        uint8_t            mini_map;
+        int32_t         bmapx;
+        int32_t         bmapy;
+        uint8_t         mini_map:2;
+        uint8_t         map:1;
         bool            lock;
         bool            button;
 
@@ -109,10 +118,10 @@ bool    special_bloc(t_win *win, t_cam *cam, char **map);
 /*
 ** Mini Map functions
 */
-int     give_color(char **map, int x, int y, t_cam *cam);
+int     give_color(char **map, int x, int y);
 void    outline_mini_map(t_win *win, int type);
 void    put_player(t_win *win);
-void    bresenham(t_win *win, int p1[2], int p2[2]);
+void    bresenham(t_win *win, double p1[2], double p2[2]);
 
 /*
 ** print functions

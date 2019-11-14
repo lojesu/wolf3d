@@ -52,6 +52,9 @@ t_cam		init_cam(char **map)
     ret.angle = 0;
     ret.lock = false;
     ret.mini_map = 1;
+    ret.map = 0;
+    ret.bmapx = 0;
+    ret.bmapy = 0;
     ret.button = is_there_seven(map);
 	return (ret);
 }

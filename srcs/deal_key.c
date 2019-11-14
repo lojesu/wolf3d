@@ -61,6 +61,38 @@ void	    move(int key, char **map, t_win *win, t_cam *cam)
 		raycasting(win, cam, map);
 		put_image(win);
     }
+    else if (key == MAP)
+    {
+        cam->map = !cam->map;
+        cam->bmapx = 0;
+        cam->bmapy = 0;
+		raycasting(win, cam, map);
+		put_image(win);
+    }
+    else if (key == UP_MAP)
+    {
+        cam->bmapy -= 1;
+		raycasting(win, cam, map);
+		put_image(win);
+    }
+    else if (key == DOWN_MAP)
+    {
+        cam->bmapy += 1;
+		raycasting(win, cam, map);
+		put_image(win);
+    }
+    else if (key == RIGHT_MAP)
+    {
+        cam->bmapx += 1;
+		raycasting(win, cam, map);
+		put_image(win);
+    }
+    else if (key == LEFT_MAP)
+    {
+        cam->bmapx -= 1;
+		raycasting(win, cam, map);
+		put_image(win);
+    }
     else if (key == RESET)
     {
         key = cam->mini_map;
