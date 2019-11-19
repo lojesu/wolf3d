@@ -9,8 +9,8 @@ SRCDIR		= srcs/
 LFTDIR		= libft/
 LMTHDIR		= libmath/
 MLXDIR		= ./minilibx_macos
-LVECDIR		= ./libvec/
-INCDIR		= ./incs/ ./libft/ ./minilibx_macos/ ./libmath/ ./libvec/inc
+LVECDIR		= libvec/
+INCDIR		= ./incs/ ./libft/ ./minilibx_macos/ ./libmath/ ./libvec/inc/
 
 # Source files (Can be changed)
 
@@ -49,7 +49,7 @@ FRAMEWORKS	= $(foreach framework, $(TOOLS), -framework $(framework))
 
 CC			= gcc
 OBJ			= $(SRC:.c=.o)
-LIBS		= -L$(LFTDIR) -lft -L$(MLXDIR) -lmlx -L$(LMTHDIR) -lmath -lvec -L$(LVECDIR)
+LIBS		= -L$(LFTDIR) -lft -L$(MLXDIR) -lmlx -L$(LMTHDIR) -lmath  -L$(LVECDIR) -lvec
 CFLAGS		= $(INCLUDES) #-Wall -Wextra -Werror -O3
 
 # Color codes
@@ -62,7 +62,7 @@ YELLOW		= \033[33m
 
 all: $(SUBDIRS) $(NAME)
 
-$(NAME): $(LFT) $(OBJDIR) $(COBJ)
+$(NAME): COMP_LIB $(OBJDIR) $(COBJ)
 	@echo "$(YELLOW)\n      - Building $(RESET)$(NAME) $(YELLOW)...\n$(RESET)"
 	@$(CC)  $(CFLAGS) $(LIBS) $(FRAMEWORKS) -o $(NAME) $(COBJ)
 	@echo "$(GREEN)***   Project $(NAME) successfully compiled   ***\n$(RESET)"
@@ -80,8 +80,9 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 
 # Compilation rule for function library
 
-$(LFT):
+COMP_LIB:
 	@make -sC $(LFTDIR) -j
+	@make -sC $(LVECDIR) -j
 	@make -sC $(MLXDIR) -j
 	@make -sC $(LMTHDIR) -j
 
@@ -89,6 +90,7 @@ $(LFT):
 
 clean:
 	@make -sC $(LFTDIR) clean
+	@make -sC $(LVECDIR) clean
 	@make -sC $(LMTHDIR) clean
 	@echo "$(GREEN)***   Deleting all object from $(NAME)   ...   ***\n$(RESET)"
 	@rm -f $(COBJ)
@@ -101,6 +103,7 @@ fclean: clean
 
 cleanLibrairy:
 	@make -sC $(LFTDIR) fclean
+	@make -sC $(LVECDIR) fclean
 	@make -sC $(MLXDIR) clean
 	@make -sC $(LMTHDIR) fclean
 
