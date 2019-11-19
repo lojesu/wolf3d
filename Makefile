@@ -24,6 +24,7 @@ SRC			= deal_key.c	\
 			raycasting.c	\
 			raycastool.c	\
 			mini_map.c	\
+			map.c		\
 			bresenham.c	\
 			speedwalk.c
 
