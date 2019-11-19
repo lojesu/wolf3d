@@ -28,78 +28,79 @@ static void move_direction(t_cam *cam, char **map, int dir)
         cam->y : cam->y - y_move / 2;
 }
 
-void	    move(int key, char **map, t_win *win, t_cam *cam)
+void	    move(int key, t_env *env)
 {
+    t_cam *cam = &env->cam;
 	if (key == FORWARD)
 	{
-        move_direction(cam, map, 0);
-		raycasting(win, cam, map);
-		put_image(win);
+        move_direction(&env->cam, env->map, 0);
+		raycasting(env);
+		put_image(&env->win);
 	}
 	else if (key == BACKWARD)
 	{
-        move_direction(cam, map, 180);
-		raycasting(win, cam, map);
-		put_image(win);
+        move_direction(&env->cam, env->map, 180);
+		raycasting(env);
+		put_image(&env->win);
 	}
     else if (key == LEFT)
     {
-        move_direction(cam, map, 90);
-		raycasting(win, cam, map);
-		put_image(win);
+        move_direction(&env->cam, env->map, 90);
+		raycasting(env);
+		put_image(&env->win);
     }
     else if (key == RIGHT)
     {
-        move_direction(cam, map, -90);
-		raycasting(win, cam, map);
-		put_image(win);
+        move_direction(&env->cam, env->map, -90);
+		raycasting(env);
+		put_image(&env->win);
     }
     else if (key == TAB)
     {
         cam->mini_map = cam->mini_map + 1;
         cam->mini_map = cam->mini_map == 3 ? 0 : cam->mini_map;
-		raycasting(win, cam, map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
     }
     else if (key == MAP)
     {
         cam->map = !cam->map;
         cam->bmapx = 0;
         cam->bmapy = 0;
-		raycasting(win, cam, map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
     }
     else if (key == UP_MAP)
     {
         cam->bmapy -= 1;
-		raycasting(win, cam, map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
     }
     else if (key == DOWN_MAP)
     {
         cam->bmapy += 1;
-		raycasting(win, cam, map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
     }
     else if (key == RIGHT_MAP)
     {
         cam->bmapx += 1;
-		raycasting(win, cam, map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
     }
     else if (key == LEFT_MAP)
     {
         cam->bmapx -= 1;
-		raycasting(win, cam, map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
     }
     else if (key == RESET)
     {
         key = cam->mini_map;
-        *cam = init_cam(map);
+        *cam = init_cam(env->map);
         cam->mini_map = key;
-		raycasting(win, cam, map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
     }
 }
 
@@ -110,32 +111,32 @@ static void	rotation(int key, t_env *env, t_win *win, t_cam *cam)
 		cam->orientation += ROTATION;
 		cam->orientation = cam->orientation >= 360 ?
                 cam->orientation - 360 : cam->orientation;
-		raycasting(win, cam, env->map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
 	}
 	else if (key == R_ROTATION)
 	{
 		cam->orientation -= ROTATION;
 		cam->orientation = cam->orientation < 0 ?
                 cam->orientation + 360 : cam->orientation;
-		raycasting(win, cam, env->map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
 	}
 	else if (key == UP)
 	{
         if (cam->angle > 96)
                 return ;
         cam->angle += ROTATION * 2;
-		raycasting(win, cam, env->map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
 	}
 	else if (key == DOWN)
 	{
         if (cam->angle < -96)
                 return ;
 		cam->angle -= ROTATION * 2;
-		raycasting(win, cam, env->map);
-		put_image(win);
+		raycasting(env);
+		put_image(&env->win);
 	}
 }
 
@@ -150,7 +151,7 @@ void    quit_window(t_win *win, char **map)
 int		deal_key(int key, t_env *env)
 {
 	rotation(key, env, &env->win, &env->cam);
-	move(key, env->map, &env->win, &env->cam);
+	move(key, env);
 	if (key == ESC)
         quit_window(&env->win, env->map);
 	return (0);

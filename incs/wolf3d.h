@@ -37,10 +37,20 @@
 # define LEFT_MAP 86
 # define RIGHT_MAP 88
 
+# define BMP_SIZE (64 * 64)
+# define BMP_NB 4
 
 # include <stddef.h>
 # include <stdint.h>
 # include <stdbool.h>
+
+enum            e_side
+{
+        SIDE_RIGHT = 1,
+        SIDE_LEFT = 2,
+        SIDE_UP = 3,
+        SIDE_DOWN = 4,
+};
 
 typedef	struct	s_cam
 {
@@ -73,7 +83,16 @@ typedef	struct	s_env
 	t_win	win;
 	t_cam	cam;
 	char	**map;
+        int     bmp[BMP_NB][BMP_SIZE];
 }				t_env;
+
+typedef struct  s_wall
+{
+        double x;
+        double y;
+        double dist;
+        enum e_side side;
+}               t_wall;
 
 /*
 ** initialisation functions
@@ -93,18 +112,19 @@ void            quit_window(t_win *win, char **map);
 ** functions that manage keys on the keyboard
 */
 int			deal_key(int key, t_env *env);
-void                    move(int key, char **map, t_win *win, t_cam *cam);
+void                    move(int key, t_env *env);
 
 /*
 ** parsing functions
 */
 char	*read_file(int argc, char**argv);
 char	**parsing(char *map_read);
+void    launch_texture(t_env *env);
 
 /*
 ** raycasting functions
 */
-void	raycasting(t_win *win, t_cam *cam, char **map);
+void	raycasting(t_env *env);
 void    pre_raycasting(t_env *env);
 bool    check_wall(double x, double y, char **map);
 void    trans_hori(t_cam *cam, double angle, double *x, double *y);
@@ -113,7 +133,7 @@ void    trans_vert(t_cam *cam, double angle, double *x, double *y);
 /*
 ** SpeedWalk functions
 */
-bool    special_bloc(t_win *win, t_cam *cam, char **map);
+bool    special_bloc(t_env *env);
 
 /*
 ** Mini Map functions
@@ -131,5 +151,9 @@ void    put_fov(t_win *win, t_cam *cam, int x, int y);
 void	print_column(t_win *win, int size_wall, size_t column, t_cam *cam);
 void	put_pixel(t_win *win, size_t x, size_t y, int color);
 void    print_mini_map(t_cam *cam, char **map, t_win *win);
+void    print(t_env *env, t_wall wall, size_t column);
+
+
+void            my_intcpy(int *dst, int *src, int size); // del
 
 #endif

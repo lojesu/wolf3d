@@ -6,7 +6,7 @@
 /*   By: roster <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 11:00:25 by roster            #+#    #+#             */
-/*   Updated: 2018/12/20 08:21:44 by roster           ###   ########.fr       */
+/*   Updated: 2019/11/19 15:46:32 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ char	*ft_strjoin_free(char *s1, char *s2, int mod)
 	char	*str_join;
 	size_t	join_size;
 
-	if (s1 == 0 || s2 == 0)
-		return (NULL);
+    if (s2 == 0)
+        return (s1);
+	if (s1 == 0)
+		return (ft_strdup(s2));
 	join_size = ft_strlen(s1) + ft_strlen(s2);
 	if (!(str_join = (char *)malloc(sizeof(char) * join_size + 1)))
 		return (NULL);

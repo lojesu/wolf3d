@@ -21,8 +21,11 @@ void    del_me(char **map, char c)
     }
 }
 
-bool    special_bloc(t_win *win, t_cam *cam, char **map)
+bool    special_bloc(t_env *env)
 {
+    t_cam *cam = &env->cam;
+    char **map = env->map;
+    t_win *win = &env->win;
     if (cam->y < 0 || cam->y / 64 >= ft_strlen_len(map) ||
         cam->x < 0 || cam->x / 64 >= ft_strlen(map[0]))
         quit_window(win, map);
@@ -57,7 +60,7 @@ bool    special_bloc(t_win *win, t_cam *cam, char **map)
         del_me(map, '3');
     }
     else if (map[cam->y / 64][cam->x / 64] == '6')
-        move(RESET, map, win, cam);
+        move(RESET, env);
     else if (map[cam->y / 64][cam->x / 64] == '7')
     {
         cam->button = true;
@@ -73,7 +76,7 @@ bool    special_bloc(t_win *win, t_cam *cam, char **map)
 
 void    pre_raycasting(t_env *env)
 {
-    if (special_bloc(&env->win, &env->cam, env->map))
-        raycasting(&env->win, &env->cam, env->map);
+    if (special_bloc(env))
+        raycasting(env);
 }
 

@@ -9,7 +9,8 @@ SRCDIR		= srcs/
 LFTDIR		= libft/
 LMTHDIR		= libmath/
 MLXDIR		= ./minilibx_macos
-INCDIR		= ./incs/ ./libft/ ./minilibx_macos/ ./libmath/
+LVECDIR		= ./libvec/
+INCDIR		= ./incs/ ./libft/ ./minilibx_macos/ ./libmath/ ./libvec/inc
 
 # Source files (Can be changed)
 
@@ -26,10 +27,12 @@ SRC			= deal_key.c	\
 			mini_map.c	\
 			map.c		\
 			bresenham.c	\
+			read_bmp.c	\
 			speedwalk.c
 
 
 LFT			= ./libft/libft.a
+LVEC			= ./libvec/libvec.a
 LMTH		= ./libmath/libmath.a
 
 TOOLS		= OpenGL AppKit
@@ -46,7 +49,7 @@ FRAMEWORKS	= $(foreach framework, $(TOOLS), -framework $(framework))
 
 CC			= gcc
 OBJ			= $(SRC:.c=.o)
-LIBS		= -L$(LFTDIR) -lft -L$(MLXDIR) -lmlx -L$(LMTHDIR) -lmath
+LIBS		= -L$(LFTDIR) -lft -L$(MLXDIR) -lmlx -L$(LMTHDIR) -lmath -lvec -L$(LVECDIR)
 CFLAGS		= $(INCLUDES) #-Wall -Wextra -Werror -O3
 
 # Color codes

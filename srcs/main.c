@@ -20,9 +20,10 @@ int			main(int argc, char **argv)
 	t_env	env;
 
 	env.map = parsing(read_file(argc, argv));
+    launch_texture(&env);
 	init_mlx(&(env.win));
 	env.cam = init_cam(env.map);
-	raycasting(&(env.win), &(env.cam), env.map);
+	raycasting(&env);
 	put_image(&(env.win));
 	waiting_instruction(&env);
 	return (0);
