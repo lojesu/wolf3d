@@ -31,7 +31,6 @@ void    print(t_env *env, t_wall wall, size_t column)
     pos = wall.side == SIDE_UP || wall.side == SIDE_DOWN ?
             fmod(wall.x, 64) : fmod(wall.y, 64);
     ratio = (double)BMP_SIDE / (double)size_wall;
-    printf("%i %i %i\n", start, size_wall, ratio);
     z = 0;
     i = 0;
     if (start < 0)

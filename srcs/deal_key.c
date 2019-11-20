@@ -124,7 +124,7 @@ static void	rotation(int key, t_env *env, t_win *win, t_cam *cam)
 	}
 	else if (key == UP)
 	{
-        if (cam->angle > 500)
+        if (cam->angle > HEIGHT / 2 - ROTATION)
                 return ;
         cam->angle += ROTATION * 2;
 		raycasting(env);
@@ -132,7 +132,7 @@ static void	rotation(int key, t_env *env, t_win *win, t_cam *cam)
 	}
 	else if (key == DOWN)
 	{
-        if (cam->angle < -500)
+        if (cam->angle < -(HEIGHT / 2 - ROTATION))
                 return ;
 		cam->angle -= ROTATION * 2;
 		raycasting(env);

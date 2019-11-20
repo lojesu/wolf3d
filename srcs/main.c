@@ -2,8 +2,10 @@
 #include "mlx.h"
 #include "libft.h"
 
-
-#include <stdio.h>
+int    tmp(t_env *env)
+{
+        quit_window(&env->win, env->map);
+}
 
 static void	waiting_instruction(t_env *env)
 {
@@ -11,6 +13,7 @@ static void	waiting_instruction(t_env *env)
 
 	win = &(env->win);
 	mlx_hook(WIN_PTR, 2, 0, deal_key, env);
+    mlx_hook(WIN_PTR, 17, 0, tmp, env);
     mlx_loop_hook(MLX_PTR, pre_raycasting, env);
 	mlx_loop(MLX_PTR);
 }

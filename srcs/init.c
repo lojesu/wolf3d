@@ -1,8 +1,6 @@
 #include "mlx.h"
 #include "wolf3d.h"
 
-#include <stdio.h>
-#include "libft.h"
 static void	where_is_the_spawn(int32_t *x, int32_t *y, char **map)
 {
 	*y = 0;
