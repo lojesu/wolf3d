@@ -56,7 +56,6 @@ static void	verif_line(char *line, size_t pattern, size_t nb_line, char **map)
 			error("Error: the map must be surrounded by '1'", map);
 		verif_character(line, map);
 	}
-
 }
 
 char		**parsing(char *map_read)

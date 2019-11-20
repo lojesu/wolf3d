@@ -110,12 +110,6 @@ void		clear_window(t_win *win);
 void            quit_window(t_win *win, char **map);
 
 /*
-** functions that manage keys on the keyboard
-*/
-int			deal_key(int key, t_env *env);
-void                    move(int key, t_env *env);
-
-/*
 ** parsing functions
 */
 char	*read_file(int argc, char**argv);
@@ -151,9 +145,15 @@ void    put_fov(t_win *win, t_cam *cam, int x, int y);
 */
 void	print_column(t_win *win, int size_wall, size_t column, t_cam *cam);
 void	put_pixel(t_win *win, size_t x, size_t y, int color);
-void    print_mini_map(t_cam *cam, char **map, t_win *win);
+void    print_mini_map(t_env *env);
 void    print(t_env *env, t_wall wall, size_t column);
 
+/*
+** event functions
+*/
+int			deal_key(int key, t_env *env);
+void			move(int key, t_env *env);
+void			event_reset(t_env *env);
 
 void            my_intcpy(int *dst, int *src, int size); // del
 

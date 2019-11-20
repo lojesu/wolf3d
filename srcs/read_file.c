@@ -10,18 +10,18 @@ static void	error(char *s, char *map)
 	exit(1);
 }
 
-static void get_help(char *map)
+static void	get_help(char *map)
 {
-    free(map);
-    ft_putstr("Usage: ./wolf3d map [-h,--help]\n===================\nIn Game:\n"
-                    "  - [W,A,S,D] ... move forward/left/down/right\n"
-                    "  - arrows ...... move the camera\n"
-                    "  - R ........... reset\n"
-                    "  - TAB ......... open/close mini-map\n"
-                    "  - M ........... open/close map\n"
-                    "  - [8,4,5,6] ... move the map\n"
-                    "  - ESC ......... quit the game\n");
-    exit(1);
+	free(map);
+	ft_putstr("Usage: ./wolf3d map [-h,--help]\n===================\nIn Game:\n"
+	"  - [W,A,S,D] ... move forward/left/down/right\n"
+	"  - arrows ...... move the camera\n"
+	"  - R ........... reset\n"
+	"  - TAB ......... open/close mini-map\n"
+	"  - M ........... open/close map\n"
+	"  - [8,4,5,6] ... move the map\n"
+	"  - ESC ......... quit the game\n");
+	exit(1);
 }
 
 static char	*realloc_str(char *s, size_t size)
@@ -62,12 +62,12 @@ char		*read_file(int argc, char **argv)
 	map = ft_strnew(size_map);
 	if (argc != 2)
 		error("Error: wrong numbers of arguments\n"
-                "Usage: ./wolf3d map [-h,--help]", map);
-    if (!ft_strcmp(argv[1], "-h") || !ft_strcmp(argv[1], "--help"))
-            get_help(map);
+				"Usage: ./wolf3d map [-h,--help]", map);
+	if (!ft_strcmp(argv[1], "-h") || !ft_strcmp(argv[1], "--help"))
+		get_help(map);
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		error("Error: failed to open the file\n"
-                "Usage: ./wolf3d map [-h,--help]", map);
+				"Usage: ./wolf3d map [-h,--help]", map);
 	while (get_next_line(fd, &line) > 0)
 	{
 		fill_map(line, &map, &size_map);
