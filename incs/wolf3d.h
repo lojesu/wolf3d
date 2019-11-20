@@ -37,7 +37,8 @@
 # define LEFT_MAP 86
 # define RIGHT_MAP 88
 
-# define BMP_SIZE (64 * 64)
+# define BMP_SIDE 64
+# define BMP_SIZE (BMP_SIDE * BMP_SIDE)
 # define BMP_NB 4
 
 # include <stddef.h>
