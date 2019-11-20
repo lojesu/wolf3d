@@ -39,7 +39,7 @@
 
 # define BMP_SIDE 64
 # define BMP_SIZE (BMP_SIDE * BMP_SIDE)
-# define BMP_NB 4
+# define BMP_NB 8
 
 # include <stddef.h>
 # include <stdint.h>

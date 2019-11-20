@@ -4,16 +4,33 @@
 #include <libmath.h>
 
 void	wich_bmp
-	(enum e_side side, int my_bmp[BMP_SIZE], int bmp[BMP_NB][BMP_SIZE])
+	(t_wall wall, int my_bmp[BMP_SIZE], t_env *env)
 {
-	if (side == SIDE_RIGHT)
-		my_intcpy(my_bmp, bmp[0], BMP_SIZE);
-	else if (side == SIDE_LEFT)
-		my_intcpy(my_bmp, bmp[1], BMP_SIZE);
-	else if (side == SIDE_UP)
-		my_intcpy(my_bmp, bmp[2], BMP_SIZE);
+	int x;
+	int y;
+
+	x = wall.side == SIDE_RIGHT ? 32 : 0;
+	y = wall.side == SIDE_DOWN  ? 32 : 0;
+	if (env->map[((int)wall.y - y) / FRAME][((int)wall.x - x) / FRAME] == '2')
+	{
+		if (wall.side == SIDE_RIGHT)
+			my_intcpy(my_bmp, env->bmp[4], BMP_SIZE);
+		else if (wall.side == SIDE_LEFT)
+			my_intcpy(my_bmp, env->bmp[5], BMP_SIZE);
+		else if (wall.side == SIDE_UP)
+			my_intcpy(my_bmp, env->bmp[6], BMP_SIZE);
+		else
+			my_intcpy(my_bmp, env->bmp[7], BMP_SIZE);
+		return ;
+	}
+	if (wall.side == SIDE_RIGHT)
+		my_intcpy(my_bmp, env->bmp[0], BMP_SIZE);
+	else if (wall.side == SIDE_LEFT)
+		my_intcpy(my_bmp, env->bmp[1], BMP_SIZE);
+	else if (wall.side == SIDE_UP)
+		my_intcpy(my_bmp, env->bmp[2], BMP_SIZE);
 	else
-		my_intcpy(my_bmp, bmp[3], BMP_SIZE);
+		my_intcpy(my_bmp, env->bmp[3], BMP_SIZE);
 }
 
 void	draw_sky(int start, size_t column, t_win *win)
@@ -50,7 +67,7 @@ void	draw_texture(t_wall wall, t_env *env, size_t column, int start)
 
 	z = 1;
 	i = start > 0 ? start : 0;
-	wich_bmp(wall.side, my_bmp, env->bmp);
+	wich_bmp(wall, my_bmp, env);
 	pos = wall.side == SIDE_UP || wall.side == SIDE_DOWN ?
 		fmod(wall.x, 64) : fmod(wall.y, 64);
 	ratio = (double)BMP_SIDE / (double)(DIST_SCREEN * FRAME / wall.dist);
