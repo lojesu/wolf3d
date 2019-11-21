@@ -6,7 +6,7 @@
 /*   By: lojesu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 22:20:34 by lojesu            #+#    #+#             */
-/*   Updated: 2019/10/21 22:48:25 by lojesu           ###   ########.fr       */
+/*   Updated: 2019/11/21 14:36:48 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ft_print_tab(char **tab)
 {
-    size_t	i;
+	size_t	i;
 
-    i = 0;
-    while (tab[i])
-    {
-        ft_putendl(tab[i]);
-        i++;
-    }
+	i = 0;
+	while (tab[i])
+	{
+		ft_putendl(tab[i]);
+		i++;
+	}
 }

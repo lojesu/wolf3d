@@ -56,14 +56,14 @@ void		launch_texture(t_env *env)
 	char	*path[BMP_NB];
 	int		i;
 
-	path[0] = "textures/banane.bmp";
-	path[1] = "textures/pamplemousse.bmp";
-	path[2] = "textures/fennec.bmp";
-	path[3] = "textures/axolotl.bmp";
-	path[4] = "textures/secret_banana.bmp";
-	path[5] = "textures/secret_pamplemousse2.bmp";
-	path[6] = "textures/secret_fennec2.bmp";
-	path[7] = "textures/secret_axolotl2.bmp";
+	path[0] = "textures/wall.bmp";
+	path[1] = "textures/wall1.bmp";
+	path[2] = "textures/wall2.bmp";
+	path[3] = "textures/wall3.bmp";
+	path[4] = "textures/library.bmp";
+	path[5] = "textures/library.bmp";
+	path[6] = "textures/library.bmp";
+	path[7] = "textures/library.bmp";
 	i = 0;
 	while (i < BMP_NB)
 	{

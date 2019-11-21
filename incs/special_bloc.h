@@ -1,8 +1,8 @@
 #ifndef SPECIAL_BLOC_H
 # define SPECIAL_BLOC_H
 
-int	is_special_bloc(t_env *env);
-bool    special_bloc(t_env *env);
+int		is_special_bloc(t_env *env);
+bool	special_bloc(t_env *env);
 bool	speed_walk_right(t_env *env);
 bool	speed_walk_left(t_env *env);
 bool	speed_walk_down(t_env *env);

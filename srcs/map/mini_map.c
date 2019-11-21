@@ -104,7 +104,7 @@ static void	print_mini_map_cells(t_env *env, t_cam *cam, int y, int yi)
 	}
 }
 
-void	print_mini_map(t_env *env)
+void		print_mini_map(t_env *env)
 {
 	if ((&env->cam)->map == 1)
 		return (big_map(&env->win, &env->cam, env->map));

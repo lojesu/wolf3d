@@ -26,7 +26,7 @@ static double	bmap_player(double a, char **map, t_cam *cam, bool height)
 		BMAP_WPOS * CELL_SIZE + BMAP_POS - cam->bmapx * CELL_SIZE);
 }
 
-void	put_fov(t_win *win, t_cam *cam, int x, int y)
+void			put_fov(t_win *win, t_cam *cam, int x, int y)
 {
 	size_t	i;
 	int		angle;
@@ -48,7 +48,7 @@ void	put_fov(t_win *win, t_cam *cam, int x, int y)
 	}
 }
 
-static void	put_cell(t_win *win, int x, int y, int color)
+static void		put_cell(t_win *win, int x, int y, int color)
 {
 	int xi;
 	int yi;
@@ -68,7 +68,7 @@ static void	put_cell(t_win *win, int x, int y, int color)
 	yi = y;
 }
 
-static bool	is_out(t_cam *cam, char **map)
+static bool		is_out(t_cam *cam, char **map)
 {
 	return (cam->x - cam->bmapx * FRAME < 0 ||
 			cam->x - cam->bmapx * FRAME > ft_strlen(map[0]) * FRAME ||
@@ -76,7 +76,7 @@ static bool	is_out(t_cam *cam, char **map)
 			cam->y - cam->bmapy * FRAME > ft_strlen_len(map) * FRAME);
 }
 
-void	big_map(t_win *win, t_cam *cam, char **map)
+void			big_map(t_win *win, t_cam *cam, char **map)
 {
 	int x;
 	int y;

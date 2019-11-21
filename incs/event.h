@@ -21,21 +21,21 @@
 /*
 ** event functions
 */
-int			deal_key(int key, t_env *env);
-void			event_reset(t_env *env);
-void			event_left(t_env *env);
-void			event_backward(t_env *env);
-void			event_right(t_env *env);
-void			event_forward(t_env *env);
-void			event_map(t_env *env);
-void			event_tab(t_env *env);
-void			event_left_map(t_env *env);
-void			event_down_map(t_env *env);
-void			event_right_map(t_env *env);
-void			event_up_map(t_env *env);
-void			event_l_rotation(t_env *env);
-void			event_r_rotation(t_env *env);
-void			event_down(t_env *env);
-void			event_up(t_env *env);
+void	event_reset(t_env *env);
+void	event_left(t_env *env);
+void	event_backward(t_env *env);
+void	event_right(t_env *env);
+void	event_forward(t_env *env);
+void	event_map(t_env *env);
+void	event_tab(t_env *env);
+void	event_left_map(t_env *env);
+void	event_down_map(t_env *env);
+void	event_right_map(t_env *env);
+void	event_up_map(t_env *env);
+void	event_l_rotation(t_env *env);
+void	event_r_rotation(t_env *env);
+void	event_down(t_env *env);
+void	event_up(t_env *env);
+int		deal_key(int key, t_env *env);
 
 #endif
