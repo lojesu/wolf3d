@@ -44,10 +44,10 @@ typedef	struct	s_cam
 	int32_t		angle;
 	int32_t		bmapx;
 	int32_t		bmapy;
-	uint8_t		mini_map:2;
-	uint8_t		map:1;
-	bool		lock;
 	bool		button;
+	uint8_t		map;
+	uint8_t		mini_map;
+	uint8_t		lock;
 
 }				t_cam;
 
@@ -98,6 +98,7 @@ void			quit_window(t_env *env);
 char			*read_file(int argc, char**argv);
 char			**parsing(char *map_read);
 void			launch_texture(t_env *env);
+void			read_bmp(int *bmp, char *path, char *buff, int size);
 
 /*
 ** raycasting functions

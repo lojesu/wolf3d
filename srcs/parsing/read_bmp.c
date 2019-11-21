@@ -11,9 +11,8 @@ static int	rgb_to_hex(uint8_t r, uint8_t g, uint8_t b)
 	return (b << 16 ^ g << 8 ^ r);
 }
 
-static void	read_bmp(int ret[BMP_SIZE], char *path)
+void		read_bmp(int *ret, char *path, char *buff, int buff_size)
 {
-	char	buff[BUFF_SIZE + 1];
 	t_vec	bmp;
 	int		fd;
 	size_t	start;
@@ -23,9 +22,9 @@ static void	read_bmp(int ret[BMP_SIZE], char *path)
 	bmp = v_new(sizeof(uint8_t));
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return ;
-	while ((tmp = read(fd, buff, BUFF_SIZE)) > 0)
+	while ((tmp = read(fd, buff, buff_size)) > 0)
 		v_append_raw(&bmp, buff, tmp);
-	start = v_size(&bmp) - BUFF_SIZE;
+	start = v_size(&bmp) - buff_size;
 	tmp = 0;
 	while (start + tmp < v_size(&bmp))
 	{
@@ -53,6 +52,7 @@ void		my_intcpy(int *dst, int *src, int size)
 void		launch_texture(t_env *env)
 {
 	int		bmp[BMP_SIZE];
+	char	buff[BUFF_SIZE];
 	char	*path[BMP_NB];
 	int		i;
 
@@ -68,7 +68,7 @@ void		launch_texture(t_env *env)
 	while (i < BMP_NB)
 	{
 		ft_bzero(bmp, BMP_SIZE);
-		read_bmp(bmp, path[i]);
+		read_bmp(bmp, path[i], buff, BUFF_SIZE);
 		my_intcpy(env->bmp[i], bmp, BMP_SIZE);
 		++i;
 	}

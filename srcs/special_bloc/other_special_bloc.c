@@ -1,6 +1,8 @@
 #include <wolf3d.h>
 #include <special_bloc.h>
 
+#define BRAVO_SIZE (1000 * 750)
+
 void	del_me(char **map, char c)
 {
 	int x;
@@ -54,5 +56,30 @@ bool	special_end_press(t_env *env)
 	cam->button = true;
 	del_me(map, '7');
 	put_image(win);
+	return (true);
+}
+
+bool	special_end(t_env *env)
+{
+	int		bmp[BRAVO_SIZE];
+	char	buff[BRAVO_SIZE * 3];
+	int		i;
+
+	i = 0;
+	if ((&env->cam)->button == true)
+	{
+		read_bmp(bmp, "./textures/bravo.bmp", buff, BRAVO_SIZE * 3);
+		while (i < BRAVO_SIZE)
+		{
+			if (bmp[i] != 0x0)
+			{
+				put_pixel(&env->win, (WIDTH - 1000) / 2 + i % 1000,
+							1000 - i / 1000 - (HEIGHT - 750) / 2, bmp[i]);
+			}
+			++i;
+		}
+	}
+	put_image(&env->win);
+	(&env->cam)->lock = 2;
 	return (true);
 }

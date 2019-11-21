@@ -10,5 +10,6 @@ bool	speed_walk_up(t_env *env);
 bool	special_wall_press(t_env *env);
 bool	special_reset(t_env *env);
 bool	special_end_press(t_env *env);
+bool	special_end(t_env *env);
 
 #endif

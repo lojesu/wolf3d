@@ -91,8 +91,7 @@ void	raycasting(t_env *env)
 	special_bloc(env);
 	column = 0;
 	if (cam->y < 0 || cam->y / 64 >= ft_strlen_len(env->map) ||
-			cam->x < 0 || cam->x / 64 >= ft_strlen(env->map[0]) ||
-			(env->map[cam->y / 64][cam->x / 64] == '8' && cam->button == true))
+			cam->x < 0 || cam->x / 64 >= ft_strlen(env->map[0]))
 		quit_window(env);
 	while (column < WIDTH)
 	{

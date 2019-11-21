@@ -27,7 +27,8 @@ static void	found_event_function(int *key_tab, t_env *env, int key, int i)
 	f_tab[15] = event_up;
 	while (i < EVENT_NB)
 	{
-		if (key == key_tab[i])
+		if ((key == key_tab[i] && (&env->cam)->lock != 2) ||
+			((&env->cam)->lock == 2 && (i == 4 || i == 7) && key == key_tab[i]))
 			f_tab[i](env);
 		++i;
 	}
