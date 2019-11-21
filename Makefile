@@ -113,7 +113,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -rf $(OBJDIR)
 
-cleanLibrairy:
+cleanLibrary:
 	@make -sC $(LFTDIR) fclean
 	@make -sC $(LVECDIR) fclean
 	@make -sC $(MLXDIR) clean
