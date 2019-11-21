@@ -26,7 +26,7 @@ void		read_bmp(int *ret, char *path, char *buff, int buff_size)
 		v_append_raw(&bmp, buff, tmp);
 	start = v_size(&bmp) - buff_size;
 	tmp = 0;
-	while (start + tmp < v_size(&bmp))
+	while (start + tmp < (size_t)v_size(&bmp))
 	{
 		ret[tmp / 3] = rgb_to_hex(*(char *)v_get(&bmp, tmp + start),
 				*(char *)v_get(&bmp, tmp + 1 + start),

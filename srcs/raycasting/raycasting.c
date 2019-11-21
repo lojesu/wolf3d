@@ -83,15 +83,13 @@ t_wall	find_dist_wall(t_cam *cam, char **map, size_t column)
 void	raycasting(t_env *env)
 {
 	size_t	column;
-	int		size_wall;
-	int		pos;
 	t_cam	*cam;
 
 	cam = &env->cam;
 	special_bloc(env);
 	column = 0;
-	if (cam->y < 0 || cam->y / 64 >= ft_strlen_len(env->map) ||
-			cam->x < 0 || cam->x / 64 >= ft_strlen(env->map[0]))
+	if (cam->y < 0 || cam->y / 64 >= (int)ft_strlen_len(env->map) ||
+			cam->x < 0 || cam->x / 64 >= (int)ft_strlen(env->map[0]))
 		quit_window(env);
 	while (column < WIDTH)
 	{

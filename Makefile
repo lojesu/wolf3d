@@ -56,7 +56,7 @@ FRAMEWORKS	= $(foreach framework, $(TOOLS), -framework $(framework))
 CC			= gcc
 OBJ			= $(SRC:.c=.o)
 LIBS		= -L$(LFTDIR) -lft -L$(MLXDIR) -lmlx -L$(LMTHDIR) -lmath  -L$(LVECDIR) -lvec
-CFLAGS		= $(INCLUDES) #-Wall -Wextra -Werror -O3
+CFLAGS		= $(INCLUDES) -Wall -Wextra -Werror -O3
 
 # Color codes
 

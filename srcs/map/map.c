@@ -71,9 +71,9 @@ static void		put_cell(t_win *win, int x, int y, int color)
 static bool		is_out(t_cam *cam, char **map)
 {
 	return (cam->x - cam->bmapx * FRAME < 0 ||
-			cam->x - cam->bmapx * FRAME > ft_strlen(map[0]) * FRAME ||
+			cam->x - cam->bmapx * FRAME > (int)ft_strlen(map[0]) * FRAME ||
 			cam->y - cam->bmapy * FRAME < 0 ||
-			cam->y - cam->bmapy * FRAME > ft_strlen_len(map) * FRAME);
+			cam->y - cam->bmapy * FRAME > (int)ft_strlen_len(map) * FRAME);
 }
 
 void			big_map(t_win *win, t_cam *cam, char **map)

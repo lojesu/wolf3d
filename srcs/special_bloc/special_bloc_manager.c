@@ -41,8 +41,8 @@ bool	special_bloc(t_env *env)
 	cam = &env->cam;
 	map = env->map;
 	win = &env->win;
-	if (cam->y < 0 || cam->y / FRAME >= ft_strlen_len(map) ||
-			cam->x < 0 || cam->x / FRAME >= ft_strlen(map[0]))
+	if (cam->y < 0 || cam->y / FRAME >= (int)ft_strlen_len(map) ||
+			cam->x < 0 || cam->x / FRAME >= (int)ft_strlen(map[0]))
 		quit_window(env);
 	return (init_special_tab(env, map[cam->y / FRAME][cam->x / FRAME], 0));
 }

@@ -53,8 +53,8 @@ int			give_color(char **map, int x, int y)
 {
 	char	id;
 
-	if (y < 0 || y / 64 >= ft_strlen_len(map) ||
-					x < 0 || x / 64 >= ft_strlen(map[0]))
+	if (y < 0 || y / 64 >= (int)ft_strlen_len(map) ||
+					x < 0 || x / 64 >= (int)ft_strlen(map[0]))
 		return (0x0);
 	else
 		id = map[y / 64][x / 64];
