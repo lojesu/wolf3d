@@ -2,6 +2,7 @@
 #include <libft.h>
 #include <math.h>
 #include <libmath.h>
+#include <map.h>
 
 #define CELL_SIZE 32
 #define FOV_SIZE (CELL_SIZE / 3.5)
@@ -13,9 +14,8 @@
 #define BMAP_HEIGHT ((HEIGHT - BMAP_POS)/(CELL_SIZE+1) - BMAP_POS/(CELL_SIZE+1))
 #define BMAP_HPOS1 (int)((BMAP_HEIGHT - ft_strlen_len(map))/2)
 #define BMAP_HPOS (BMAP_HPOS1 > 0 ? BMAP_HPOS1 : 0)
-#define COLOR_NB 12
 
-double	bmap_player(double a, char **map, t_cam *cam, bool height)
+static double	bmap_player(double a, char **map, t_cam *cam, bool height)
 {
 	if (height)
 	{
@@ -24,63 +24,6 @@ double	bmap_player(double a, char **map, t_cam *cam, bool height)
 	}
 	return ((double)((double)a) * CELL_SIZE / FRAME +
 		BMAP_WPOS * CELL_SIZE + BMAP_POS - cam->bmapx * CELL_SIZE);
-}
-
-void	init_color_id(char *ci)
-{
-	ci[0] = '0';
-	ci[1] = '1';
-	ci[2] = '2';
-	ci[3] = '3';
-	ci[4] = '6';
-	ci[5] = '7';
-	ci[6] = '8';
-	ci[7] = '9';
-	ci[8] = 'R';
-	ci[9] = 'L';
-	ci[10] = 'D';
-	ci[11] = 'U';
-}
-
-int		search_color(char id)
-{
-	char	color_id[COLOR_NB];
-	int		color[COLOR_NB];
-	int		i;
-
-	init_color_id(color_id);
-	color[0] = 0xc8c8c8;
-	color[1] = 0xff0044;
-	color[2] = 0xff5050;
-	color[3] = 0x6600ff;
-	color[4] = 0x00ccff;
-	color[5] = 0x9933ff;
-	color[6] = 0x66ff33;
-	color[7] = 0xffff00;
-	color[8] = 0x800000;
-	color[9] = 0x993333;
-	color[10] = 0x996633;
-	color[11] = 0x663300;
-	i = 0;
-	while (i < 12)
-	{
-		if (color_id[i] == id)
-			return (color[i]);
-		++i;
-	}
-	return (0x0);
-}
-
-int		give_color(char **map, int x, int y)
-{
-	char	id;
-
-	if (y < 0 || y / 64 >= ft_strlen_len(map) ||
-					x < 0 || x / 64 >= ft_strlen(map[0]))
-		return (0x0);
-	else
-		id = map[y / 64][x / 64];
-	return (search_color(id));
 }
 
 void	put_fov(t_win *win, t_cam *cam, int x, int y)
@@ -105,7 +48,7 @@ void	put_fov(t_win *win, t_cam *cam, int x, int y)
 	}
 }
 
-void	put_cell(t_win *win, int x, int y, int color)
+static void	put_cell(t_win *win, int x, int y, int color)
 {
 	int xi;
 	int yi;
@@ -125,7 +68,7 @@ void	put_cell(t_win *win, int x, int y, int color)
 	yi = y;
 }
 
-bool	is_out(t_cam *cam, char **map)
+static bool	is_out(t_cam *cam, char **map)
 {
 	return (cam->x - cam->bmapx * FRAME < 0 ||
 			cam->x - cam->bmapx * FRAME > ft_strlen(map[0]) * FRAME ||

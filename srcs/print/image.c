@@ -1,5 +1,18 @@
 #include "mlx.h"
 #include "wolf3d.h"
+#include <stdlib.h>
+#include <libft.h>
+
+void	quit_window(t_env *env)
+{
+	t_win *win;
+
+	win = &env->win;
+	clear_window(win);
+	mlx_destroy_window(MLX_PTR, WIN_PTR);
+	ft_tabdel_char(&env->map);
+	exit(1);
+}
 
 void	clear_window(t_win *win)
 {

@@ -20,23 +20,6 @@
 # define S_L win->s_l
 # define ENDIAN win->endian
 
-# define ESC 53
-# define FORWARD 13
-# define BACKWARD 1
-# define LEFT 0
-# define RIGHT 2
-# define L_ROTATION 123
-# define R_ROTATION 124
-# define UP 126
-# define DOWN 125
-# define TAB 48
-# define RESET 15
-# define MAP 46
-# define UP_MAP 91
-# define DOWN_MAP 87
-# define LEFT_MAP 86
-# define RIGHT_MAP 88
-
 # define BMP_SIDE 64
 # define BMP_SIZE (BMP_SIDE * BMP_SIDE)
 # define BMP_NB 8
@@ -107,7 +90,7 @@ t_cam		init_cam(char **map);
 void		new_image(t_win *win);
 void		put_image(t_win *win);
 void		clear_window(t_win *win);
-void            quit_window(t_win *win, char **map);
+void		quit_window(t_env *env);
 
 /*
 ** parsing functions
@@ -119,26 +102,16 @@ void    launch_texture(t_env *env);
 /*
 ** raycasting functions
 */
-void	raycasting(t_env *env);
-void    pre_raycasting(t_env *env);
 bool    check_wall(double x, double y, char **map);
+void	raycasting(t_env *env);
 void    trans_hori(t_cam *cam, double angle, double *x, double *y);
 void    trans_vert(t_cam *cam, double angle, double *x, double *y);
 
 /*
-** SpeedWalk functions
+** special bloc functions
 */
-bool    special_bloc(t_env *env);
-
-/*
-** Mini Map functions
-*/
-int     give_color(char **map, int x, int y);
-void    outline_mini_map(t_win *win, int type);
-void    put_player(t_win *win);
-void    bresenham(t_win *win, double p1[2], double p2[2]);
-void    big_map(t_win *win, t_cam *cam, char **map);
-void    put_fov(t_win *win, t_cam *cam, int x, int y);
+bool	special_bloc(t_env *env);
+int	is_special_bloc(t_env *env);
 
 /*
 ** print functions
@@ -152,9 +125,11 @@ void    print(t_env *env, t_wall wall, size_t column);
 ** event functions
 */
 int			deal_key(int key, t_env *env);
-void			move(int key, t_env *env);
 void			event_reset(t_env *env);
 
-void            my_intcpy(int *dst, int *src, int size); // del
+/*
+** tool funtion
+*/
+void            my_intcpy(int *dst, int *src, int size);
 
 #endif

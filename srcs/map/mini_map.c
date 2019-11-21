@@ -2,6 +2,7 @@
 #include <libft.h>
 #include <math.h>
 #include <libmath.h>
+#include <map.h>
 
 #define CELL_SIZE 32
 #define CELL_NB 3
@@ -11,7 +12,7 @@
 #define PLAYER (MAP_SIZE / 2 - PLAYER_SIZE / 2 + MAP_POS + 1 + PLAYER_SIZE / 2)
 #define CALC(a, b) (a + b * FRAME / CELL_SIZE - CELL_NB * 64 - 32)
 
-void	outline_mini_map_circle(t_win *win, int x_center, int y_center)
+static void	outline_mini_map_circle(t_win *win, int x_center, int y_center)
 {
 	size_t	x;
 	size_t	y;
@@ -40,7 +41,7 @@ void	outline_mini_map_circle(t_win *win, int x_center, int y_center)
 	}
 }
 
-void	outline_mini_map(t_win *win, int type)
+static void	outline_mini_map(t_win *win, int type)
 {
 	int x;
 	int y;
@@ -65,17 +66,7 @@ void	outline_mini_map(t_win *win, int type)
 	}
 }
 
-bool	in_circle(int x, int y)
-{
-	int rayon;
-	int center;
-
-	rayon = (CELL_SIZE + 1) * CELL_NB + CELL_NB;
-	center = MAP_POS + (MAP_SIZE) / 2;
-	return (hypot(ABS((x - center)), ABS((y - center))) < rayon);
-}
-
-void	mini_map_print_line(int x, int y, t_env *env)
+static void	mini_map_print_line(int x, int y, t_env *env)
 {
 	int		xi;
 	t_cam	*cam;
@@ -96,7 +87,7 @@ void	mini_map_print_line(int x, int y, t_env *env)
 	}
 }
 
-void	print_mini_map_cells(t_env *env, t_cam *cam, int y, int yi)
+static void	print_mini_map_cells(t_env *env, t_cam *cam, int y, int yi)
 {
 	int x;
 

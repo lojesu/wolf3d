@@ -14,22 +14,28 @@ INCDIR		= ./incs/ ./libft/ ./minilibx_macos/ ./libmath/ ./libvec/inc/
 
 # Source files (Can be changed)
 
-SRC			= deal_key.c	\
-			image.c		\
-			init.c		\
-			main.c		\
-			parsing.c	\
-			print.c		\
-			put_pixel.c	\
-			read_file.c	\
-			raycasting.c	\
-			raycastool.c	\
-			mini_map.c	\
-			map.c		\
-			bresenham.c	\
-			read_bmp.c	\
-			speedwalk.c
-
+SRC			= main.c				\
+			event/map.c				\
+			event/move.c				\
+			event/other.c				\
+			event/rotation.c			\
+			event/deal_key.c			\
+			map/color.c				\
+			map/map.c				\
+			map/mini_map.c				\
+			parsing/init.c				\
+			parsing/parsing.c			\
+			parsing/read_file.c			\
+			parsing/read_bmp.c			\
+			print/bresenham.c			\
+			print/image.c				\
+			print/print.c				\
+			print/put_pixel.c			\
+			raycasting/raycasting.c			\
+			raycasting/raycastool.c			\
+			special_bloc/speed_walk.c		\
+			special_bloc/special_bloc_manager.c	\
+			special_bloc/other_special_bloc.c
 
 LFT			= ./libft/libft.a
 LVEC			= ./libvec/libvec.a
@@ -69,6 +75,12 @@ $(NAME): COMP_LIB $(OBJDIR) $(COBJ)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
+	@mkdir -p $(OBJDIR)/event
+	@mkdir -p $(OBJDIR)/map
+	@mkdir -p $(OBJDIR)/parsing
+	@mkdir -p $(OBJDIR)/print
+	@mkdir -p $(OBJDIR)/raycasting
+	@mkdir -p $(OBJDIR)/special_bloc
 
 $(SUBDIRS):
 	@mkdir -p $(SUBDIRS)

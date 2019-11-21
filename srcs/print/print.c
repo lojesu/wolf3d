@@ -10,7 +10,7 @@ void	wich_bmp
 	int y;
 
 	x = wall.side == SIDE_RIGHT ? 32 : 0;
-	y = wall.side == SIDE_DOWN  ? 32 : 0;
+	y = wall.side == SIDE_DOWN ? 32 : 0;
 	if (env->map[((int)wall.y - y) / FRAME][((int)wall.x - x) / FRAME] == '2')
 	{
 		if (wall.side == SIDE_RIGHT)
