@@ -2,7 +2,7 @@
 #include <math.h>
 #include <libmath.h>
 #include <event.h>
-#define SPEED 8
+#define SPEED 10
 
 static void	move_direction(t_cam *cam, char **map, int dir)
 {

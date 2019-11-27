@@ -46,7 +46,7 @@ t_cam		init_cam(char **map)
 	where_is_the_spawn(&x, &y, map);
 	ret.x = x * FRAME + FRAME / 2;
 	ret.y = y * FRAME + FRAME / 2;
-	ret.orientation = 0;
+	ret.orientation = 180;
 	ret.angle = 0;
 	ret.lock = false;
 	ret.mini_map = 1;

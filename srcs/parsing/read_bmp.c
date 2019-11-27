@@ -6,11 +6,6 @@
 
 #define BUFF_SIZE (BMP_SIZE * 3)
 
-static int	rgb_to_hex(uint8_t r, uint8_t g, uint8_t b)
-{
-	return (b << 16 ^ g << 8 ^ r);
-}
-
 void		read_bmp(int *ret, char *path, char *buff, int buff_size)
 {
 	t_vec	bmp;
@@ -58,12 +53,12 @@ void		launch_texture(t_env *env)
 
 	path[0] = "textures/wall.bmp";
 	path[1] = "textures/wall1.bmp";
-	path[2] = "textures/wall2.bmp";
+	path[2] = "textures/librarynoire2.bmp";
 	path[3] = "textures/wall3.bmp";
 	path[4] = "textures/library.bmp";
-	path[5] = "textures/library.bmp";
-	path[6] = "textures/library.bmp";
-	path[7] = "textures/library.bmp";
+	path[5] = "textures/library2.bmp";
+	path[6] = "textures/library2.bmp";
+	path[7] = "textures/librarynoire2.bmp";
 	i = 0;
 	while (i < BMP_NB)
 	{

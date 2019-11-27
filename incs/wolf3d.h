@@ -122,6 +122,9 @@ void			print_column(t_win *win, int size_wall, size_t column,
 void			put_pixel(t_win *win, size_t x, size_t y, int color);
 void			print_mini_map(t_env *env);
 void			print(t_env *env, t_wall wall, size_t column);
+int			rgb_to_hex(uint8_t r, uint8_t g, uint8_t b);
+void			hex_to_rgb(int *r, int *g, int *b, int color);
+int			get_color(t_win *win, size_t x, size_t y);
 
 /*
 ** event functions
