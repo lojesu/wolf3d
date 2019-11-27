@@ -79,6 +79,8 @@ bool	special_end(t_env *env)
 			++i;
 		}
 	}
+	else
+		return (true);
 	put_image(&env->win);
 	(&env->cam)->lock = 2;
 	return (true);

@@ -82,7 +82,7 @@ static void	mini_map_print_line(int x, int y, t_env *env)
 		}
 		if (in_circle(x + MAP_POS, y + MAP_POS) || cam->mini_map == 2)
 			put_pixel(&env->win, x + MAP_POS, y + MAP_POS,
-				give_color(env->map, CALC(cam->x, x), CALC(cam->y, y)));
+				give_color(env->map, CALC(cam->x, x), CALC(cam->y, y), &env->cam));
 		xi = CALC(cam->x, x++);
 	}
 }

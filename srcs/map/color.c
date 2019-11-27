@@ -2,7 +2,7 @@
 #include <wolf3d.h>
 #include <math.h>
 #include <map.h>
-#define COLOR_NB 12
+#define COLOR_NB 13
 
 static void	init_color_id(char *ci)
 {
@@ -18,9 +18,10 @@ static void	init_color_id(char *ci)
 	ci[9] = 'L';
 	ci[10] = 'D';
 	ci[11] = 'U';
+	ci[12] = '8';
 }
 
-static int	search_color(char id)
+static int	search_color(char id, t_cam *cam)
 {
 	char	color_id[COLOR_NB];
 	int		color[COLOR_NB];
@@ -33,23 +34,24 @@ static int	search_color(char id)
 	color[3] = 0x6600ff;
 	color[4] = 0x00ccff;
 	color[5] = 0x9933ff;
-	color[6] = 0x66ff33;
+	color[6] = 0x398220;
 	color[7] = 0xffff00;
 	color[8] = 0x800000;
 	color[9] = 0x993333;
 	color[10] = 0x996633;
 	color[11] = 0x663300;
+	color[12] = 0x66ff33;
 	i = 0;
-	while (i < 12)
+	while (i < COLOR_NB)
 	{
-		if (color_id[i] == id)
+		if (color_id[i] == id && !(i == 6 && cam->button == true))
 			return (color[i]);
 		++i;
 	}
 	return (0x0);
 }
 
-int			give_color(char **map, int x, int y)
+int			give_color(char **map, int x, int y, t_cam *cam)
 {
 	char	id;
 
@@ -58,7 +60,7 @@ int			give_color(char **map, int x, int y)
 		return (0x0);
 	else
 		id = map[y / 64][x / 64];
-	return (search_color(id));
+	return (search_color(id, cam));
 }
 
 bool		in_circle(int x, int y)

@@ -91,7 +91,7 @@ void			big_map(t_win *win, t_cam *cam, char **map)
 				x * (CELL_SIZE + 1) + BMAP_WPOS * CELL_SIZE + BMAP_POS,
 				y * (CELL_SIZE + 1) + BMAP_HPOS * CELL_SIZE + BMAP_POS,
 				give_color(map, (x + cam->bmapx) * FRAME,
-						(y + cam->bmapy) * FRAME));
+						(y + cam->bmapy) * FRAME, cam));
 			++x;
 		}
 		++y;
