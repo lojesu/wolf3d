@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/28 18:10:20 by glegendr          #+#    #+#             */
+/*   Updated: 2019/11/28 18:10:21 by glegendr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf3d.h"
 #include <libft.h>
 #include <math.h>
@@ -82,7 +94,8 @@ static void	mini_map_print_line(int x, int y, t_env *env)
 		}
 		if (in_circle(x + MAP_POS, y + MAP_POS) || cam->mini_map == 2)
 			put_pixel(&env->win, x + MAP_POS, y + MAP_POS,
-				give_color(env->map, CALC(cam->x, x), CALC(cam->y, y), &env->cam));
+				give_color(env->map, CALC(cam->x, x),
+					CALC(cam->y, y), &env->cam));
 		xi = CALC(cam->x, x++);
 	}
 }

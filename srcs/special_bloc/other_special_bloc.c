@@ -1,5 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   other_special_bloc.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/28 18:10:56 by glegendr          #+#    #+#             */
+/*   Updated: 2019/11/28 18:10:58 by glegendr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <wolf3d.h>
 #include <special_bloc.h>
+#include <libft.h>
+
+#include <stdio.h>
 
 #define BRAVO_SIZE (1000 * 750)
 
@@ -28,8 +43,7 @@ bool	special_wall_press(t_env *env)
 
 	win = &env->win;
 	map = env->map;
-	del_me(map, '2');
-	del_me(map, '3');
+	launch_cinematique(env);
 	put_image(win);
 	return (true);
 }

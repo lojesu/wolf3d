@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/28 18:11:38 by glegendr          #+#    #+#             */
+/*   Updated: 2019/11/28 18:11:39 by glegendr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef WOLF3D_H
 # define WOLF3D_H
 
@@ -7,6 +19,7 @@
 # define DIST_SCREEN (int)((WIDTH / 2) / tan(deg_to_rad(30)))
 # define TRUE_DIST (cos(deg_to_rad(((double)column)*VISUAL_FIELD/ WIDTH - 30)))
 # define ABS(x) (x < 0 ? -x : x)
+# define ANGLE(ori, col) ori + VISUAL_FIELD / 2 - col * VISUAL_FIELD / WIDTH
 
 # define VISUAL_FIELD 60
 # define FRAME 64
@@ -22,7 +35,7 @@
 
 # define BMP_SIDE 64
 # define BMP_SIZE (BMP_SIDE * BMP_SIDE)
-# define BMP_NB 8
+# define BMP_NB 5
 
 # include <stddef.h>
 # include <stdint.h>
@@ -38,17 +51,17 @@ enum			e_side
 
 typedef	struct	s_cam
 {
-	int32_t		x;
-	int32_t		y;
-	int32_t		orientation;
-	int32_t		angle;
-	int32_t		bmapx;
-	int32_t		bmapy;
-	bool		button;
-	uint8_t		map;
-	uint8_t		mini_map;
-	uint8_t		lock;
-
+	int32_t	x;
+	int32_t	y;
+	int32_t	orientation;
+	int32_t	angle;
+	int32_t	bmapx;
+	int32_t	bmapy;
+	bool	button;
+	uint8_t	map;
+	uint8_t	mini_map;
+	uint8_t	lock;
+	uint8_t	scene;
 }				t_cam;
 
 typedef	struct	s_win
