@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:42 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/28 18:10:44 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/28 18:54:20 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ void	draw_sky(int start, size_t column, t_win *win)
 	while (i < start && i < HEIGHT)
 	{
 		put_pixel(win, column, i, 0x0068d1);
-		i++;
+		++i;
 	}
 }
 
 void	draw_floor(int start, size_t column, int size_wall, t_win *win)
 {
-	int		i;
+	uint32_t	i;
 
 	i = start + size_wall;
 	while (i < HEIGHT)
 	{
 		put_pixel(win, column, i, 0x797171);
-		i++;
+		++i;
 	}
 }
 
