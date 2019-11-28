@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/28 18:10:42 by glegendr          #+#    #+#             */
+/*   Updated: 2019/11/28 18:10:44 by glegendr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf3d.h"
 #include <libft.h>
 #include <math.h>
@@ -13,14 +25,7 @@ void	wich_bmp
 	y = wall.side == SIDE_DOWN ? 32 : 0;
 	if (env->map[((int)wall.y - y) / FRAME][((int)wall.x - x) / FRAME] == '2')
 	{
-		if (wall.side == SIDE_RIGHT)
-			my_intcpy(my_bmp, env->bmp[4], BMP_SIZE);
-		else if (wall.side == SIDE_LEFT)
-			my_intcpy(my_bmp, env->bmp[5], BMP_SIZE);
-		else if (wall.side == SIDE_UP)
-			my_intcpy(my_bmp, env->bmp[6], BMP_SIZE);
-		else
-			my_intcpy(my_bmp, env->bmp[7], BMP_SIZE);
+		my_intcpy(my_bmp, env->bmp[4], BMP_SIZE);
 		return ;
 	}
 	if (wall.side == SIDE_RIGHT)

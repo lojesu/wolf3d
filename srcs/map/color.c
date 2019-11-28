@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/28 18:10:13 by glegendr          #+#    #+#             */
+/*   Updated: 2019/11/28 18:10:14 by glegendr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <libft.h>
 #include <wolf3d.h>
 #include <math.h>
@@ -42,11 +54,10 @@ static int	search_color(char id, t_cam *cam)
 	color[11] = 0x663300;
 	color[12] = 0x66ff33;
 	i = 0;
-	while (i < COLOR_NB)
+	while (i++ < COLOR_NB)
 	{
-		if (color_id[i] == id && !(i == 6 && cam->button == true))
-			return (color[i]);
-		++i;
+		if (color_id[i - 1] == id && !(i == 7 && cam->button == true))
+			return (color[i - 1]);
 	}
 	return (0x0);
 }

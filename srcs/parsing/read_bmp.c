@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_bmp.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/28 18:10:27 by glegendr          #+#    #+#             */
+/*   Updated: 2019/11/28 18:10:28 by glegendr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <libft.h>
 #include <wolf3d.h>
 #include <unistd.h>
@@ -19,9 +31,9 @@ void		read_bmp(int *ret, char *path, char *buff, int buff_size)
 	int		tmp;
 
 	tmp = 0;
-	bmp = v_new(sizeof(uint8_t));
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return ;
+	bmp = v_new(sizeof(uint8_t));
 	while ((tmp = read(fd, buff, buff_size)) > 0)
 		v_append_raw(&bmp, buff, tmp);
 	start = v_size(&bmp) - buff_size;
@@ -61,13 +73,10 @@ void		launch_texture(t_env *env)
 	path[2] = "textures/wall2.bmp";
 	path[3] = "textures/wall3.bmp";
 	path[4] = "textures/library.bmp";
-	path[5] = "textures/library.bmp";
-	path[6] = "textures/library.bmp";
-	path[7] = "textures/library.bmp";
 	i = 0;
 	while (i < BMP_NB)
 	{
-		ft_bzero(bmp, BMP_SIZE);
+		ft_bzero(bmp, BMP_SIZE * sizeof(int));
 		read_bmp(bmp, path[i], buff, BUFF_SIZE);
 		my_intcpy(env->bmp[i], bmp, BMP_SIZE);
 		++i;

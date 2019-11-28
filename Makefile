@@ -34,6 +34,7 @@ SRC			= main.c				\
 			raycasting/raycasting.c			\
 			raycasting/raycastool.c			\
 			special_bloc/speed_walk.c		\
+			special_bloc/scene.c			\
 			special_bloc/special_bloc_manager.c	\
 			special_bloc/other_special_bloc.c
 
