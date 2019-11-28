@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:27 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/28 18:10:28 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:04:30 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void		my_intcpy(int *dst, int *src, int size)
 
 void		launch_texture(t_env *env)
 {
-	int		bmp[BMP_SIZE];
 	char	buff[BUFF_SIZE];
 	char	*path[BMP_NB];
 	int		i;
@@ -76,9 +75,8 @@ void		launch_texture(t_env *env)
 	i = 0;
 	while (i < BMP_NB)
 	{
-		ft_bzero(bmp, BMP_SIZE * sizeof(int));
-		read_bmp(bmp, path[i], buff, BUFF_SIZE);
-		my_intcpy(env->bmp[i], bmp, BMP_SIZE);
+		ft_bzero(env->bmp[i], BMP_SIZE * sizeof(int));
+		read_bmp(env->bmp[i], path[i], buff, BUFF_SIZE);
 		++i;
 	}
 }
