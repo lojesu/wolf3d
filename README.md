@@ -11,13 +11,13 @@ To play with a precise map use
 ```./wolf3d <map path>```
 ## Play
 In game, you can use:
-- W A S D ---- allow move forward/left/down/right
-- Arrows ----- move the camera
-- R ---------- return to spawn
-- TAB -------- switch mini-map mode
-- M ---------- open/close map
-- 8,4,5,6 ---- move the map (numeric keypad)
-- ESC -------- quit the game
+- <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> ----- allow move forward/left/down/right
+- <kbd>▲</kbd><kbd>◄</kbd><kbd>▼</kbd><kbd>►</kbd> ----- move the camera
+- <kbd>R</kbd> ------------- return to spawn
+- <kbd>tab</kbd> ----------- switch mini-map mode
+- <kbd>M</kbd> ------------- open/close map
+- <kbd>8</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd>------ move the map (numeric keypad)
+- <kbd>esc</kbd>------------ quit the game
 
 |color|map creator id|description|
 |:-:|:-:|:-:|
