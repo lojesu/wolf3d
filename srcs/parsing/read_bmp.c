@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:27 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/28 19:04:30 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:26:14 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		launch_texture(t_env *env)
 	i = 0;
 	while (i < BMP_NB)
 	{
-		ft_bzero(env->bmp[i], BMP_SIZE * sizeof(int));
+		ft_bzero(env->bmp[i], (BMP_SIZE) * sizeof(int));
 		read_bmp(env->bmp[i], path[i], buff, BUFF_SIZE);
 		++i;
 	}
