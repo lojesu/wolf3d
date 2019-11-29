@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:56 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/29 12:44:20 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:05:35 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #define BRAVO_SIZE (1000 * 750)
 
-void	del_me(char **map, char c)
+void	replace_me(char **map, char c, char r)
 {
 	int x;
 	int y;
@@ -27,7 +27,7 @@ void	del_me(char **map, char c)
 		x = 0;
 		while (map[y][x])
 		{
-			map[y][x] = map[y][x] == c ? '0' : map[y][x];
+			map[y][x] = map[y][x] == c ? r : map[y][x];
 			++x;
 		}
 		++y;
@@ -66,7 +66,7 @@ bool	special_end_press(t_env *env)
 	cam = &env->cam;
 	map = env->map;
 	cam->button = true;
-	del_me(map, '7');
+	replace_me(map, '7', '0');
 	put_image(win);
 	return (true);
 }

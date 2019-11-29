@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:11:35 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/29 11:15:31 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:08:37 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ bool	special_canon_right(t_env *env);
 bool	special_canon_left(t_env *env);
 bool	special_canon_down(t_env *env);
 bool	special_canon_up(t_env *env);
+bool	special_floor_press(t_env *env);
 void	special_canon_manager(t_env *env);
 void	launch_cinematique(t_env *env);
 void	find_destination(int *x, int *y, t_env *env, int *ori);
-void	del_me(char **map, char c);
+void	replace_me(char **map, char c, char r);
 
 #endif

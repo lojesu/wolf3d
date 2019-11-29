@@ -25,6 +25,8 @@ In game, you can use:
 |![#ff0044](https://placehold.it/15/ff0044/000000?text=+)|1| wall|
 |![#ff5050](https://placehold.it/15/ff5050/000000?text=+)|2| secret wall|
 |![#6600ff](https://placehold.it/15/6600ff/000000?text=+)|3| button breaking secret wall|
+|![#c8c8c8](https://placehold.it/15/6600ff/000000?text=+)|4| secret floor|
+|![#ff0066](https://placehold.it/15/6600ff/000000?text=+)|5| button creating wall in secret floor|
 |![#00ccff](https://placehold.it/15/00ccff/000000?text=+)|6| return to spawn|
 |![#9933ff](https://placehold.it/15/9933ff/000000?text=+)|7| button unlocking the end|
 |![#66ff33](https://placehold.it/15/66ff33/000000?text=+)|8| goal|

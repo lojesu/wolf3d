@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:11:09 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/29 12:47:53 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:18:19 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <special_bloc.h>
 #include <unistd.h>
 
-#define SPE_NB 12
+#define SPE_NB 13
 
 static void	init_special_tab(char *special_tab)
 {
@@ -31,6 +31,7 @@ static void	init_special_tab(char *special_tab)
 	special_tab[9] = 'l';
 	special_tab[10] = 'd';
 	special_tab[11] = 'u';
+	special_tab[12] = '5';
 }
 
 bool		launch_special(t_env *env, int id, int i)
@@ -51,11 +52,11 @@ bool		launch_special(t_env *env, int id, int i)
 	special_fct[9] = special_canon_left;
 	special_fct[10] = special_canon_down;
 	special_fct[11] = special_canon_up;
+	special_fct[12] = special_floor_press;
 	while (i < SPE_NB)
 	{
-		if (id == special_tab[i])
-			return (special_fct[i](env));
-		++i;
+		if (id == special_tab[i++])
+			return (special_fct[i - 1](env));
 	}
 	if ((&env->cam)->lock != 3)
 		(&env->cam)->lock = 0;
@@ -91,8 +92,8 @@ void		scene(t_env *env)
 	find_destination(&x, &y, env, &ori);
 	if ((&env->cam)->scene == 2)
 	{
-		del_me(env->map, '2');
-		del_me(env->map, '3');
+		replace_me(env->map, '2', '0');
+		replace_me(env->map, '3', '0');
 	}
 	tmp = env->cam;
 	(&env->cam)->map = 0;

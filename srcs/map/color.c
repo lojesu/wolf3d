@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:13 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/29 12:02:47 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:03:21 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <wolf3d.h>
 #include <math.h>
 #include <map.h>
-#define COLOR_NB 18
+#define COLOR_NB 20
 
 static void	init_color_id(char *ci)
 {
@@ -36,6 +36,8 @@ static void	init_color_id(char *ci)
 	ci[15] = 'd';
 	ci[16] = 'u';
 	ci[17] = 's';
+	ci[18] = '4';
+	ci[19] = '5';
 }
 
 static void	init_color(int *color)
@@ -58,6 +60,8 @@ static void	init_color(int *color)
 	color[15] = 0xeebb88;
 	color[16] = 0xbb8855;
 	color[17] = 0xf9c8a7;
+	color[18] = 0xc8c8c8;
+	color[19] = 0xff0066;
 }
 
 static int	search_color(char id, t_cam *cam)

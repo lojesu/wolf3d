@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:11:03 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/28 18:11:07 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:09:48 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ void		launch_cinematique(t_env *env)
 	find_destination(&x, &y, env, &ori);
 	if (x == 0 && y == 0)
 	{
-		del_me(env->map, '2');
-		del_me(env->map, '3');
+		replace_me(env->map, '2', '0');
+		replace_me(env->map, '3', '0');
 		return ;
 	}
 	(&env->cam)->scene = 1;

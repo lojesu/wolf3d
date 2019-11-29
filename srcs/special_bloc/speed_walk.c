@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:11:12 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/29 12:39:24 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:17:52 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,14 @@ bool	speed_walk_up(t_env *env)
 			? SPD * 2 : 0;
 	cam->lock = 1;
 	put_image(win);
+	return (true);
+}
+
+bool	special_floor_press(t_env *env)
+{
+	if (((&env->cam)->x) % FRAME < 5 || ((&env->cam)->y) % FRAME < 5)
+		return (true);
+	replace_me(env->map, '4', '1');
+	replace_me(env->map, '5', '0');
 	return (true);
 }
