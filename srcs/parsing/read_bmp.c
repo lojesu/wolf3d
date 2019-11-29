@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:27 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/29 12:26:14 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 16:02:43 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void		launch_texture(t_env *env)
 	char	*path[BMP_NB];
 	int		i;
 
-	path[0] = "textures/wall.bmp";
-	path[1] = "textures/wall1.bmp";
-	path[2] = "textures/wall2.bmp";
-	path[3] = "textures/wall3.bmp";
-	path[4] = "textures/library.bmp";
+	path[0] = "textures/yellow.bmp";
+	path[1] = "textures/green.bmp";
+	path[2] = "textures/brown.bmp";
+	path[3] = "textures/magenta.bmp";
+	path[4] = "textures/purple.bmp";
 	i = 0;
 	while (i < BMP_NB)
 	{
