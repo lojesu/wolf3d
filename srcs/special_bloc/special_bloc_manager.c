@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:11:09 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/29 12:02:30 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:47:53 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ bool		launch_special(t_env *env, int id, int i)
 	special_fct[10] = special_canon_down;
 	special_fct[11] = special_canon_up;
 	while (i < SPE_NB)
-		if (id == special_tab[i++])
-			return (special_fct[i - 1](env));
+	{
+		if (id == special_tab[i])
+			return (special_fct[i](env));
+		++i;
+	}
 	if ((&env->cam)->lock != 3)
 		(&env->cam)->lock = 0;
 	return (false);

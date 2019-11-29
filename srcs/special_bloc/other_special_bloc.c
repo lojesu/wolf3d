@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:56 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/28 18:54:47 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:44:20 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ bool	special_end(t_env *env)
 			}
 			++i;
 		}
+		put_image(&env->win);
+		(&env->cam)->lock = 2;
 	}
 	else
-		return (true);
-	put_image(&env->win);
-	(&env->cam)->lock = 2;
+		(&env->cam)->lock = 0;
 	return (true);
 }

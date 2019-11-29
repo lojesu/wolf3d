@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:39:27 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/29 11:55:26 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:35:33 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,11 @@ void	special_canon_manager(t_env *env)
 
 	cam = &env->cam;
 	map = env->map;
-	if (map[cam->y / 64][cam->x / 64] == 's')
+	if (map[cam->y / 64][cam->x / 64] == 's'
+		|| map[cam->y / 64][cam->x / 64] == 'R'
+			|| map[cam->y / 64][cam->x / 64] == 'L'
+			|| map[cam->y / 64][cam->x / 64] == 'U'
+			|| map[cam->y / 64][cam->x / 64] == 'D')
 	{
 		cam->lock = 0;
 		raycasting(env);
