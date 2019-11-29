@@ -33,6 +33,11 @@ In game, you can use:
 |![#993333](https://placehold.it/15/993333/000000?text=+)|L| left speedwalk|
 |![#996633](https://placehold.it/15/996633/000000?text=+)|D| down speedwalk|
 |![#663300](https://placehold.it/15/663300/000000?text=+)|U| up speedwalk|
+|![#e55555](https://placehold.it/15/e55555/000000?text=+)|r| right cannon|
+|![#ee8888](https://placehold.it/15/ee8888/000000?text=+)|l| left cannon|
+|![#eebb88](https://placehold.it/15/eebb88/000000?text=+)|d| down cannon|
+|![#bb8855](https://placehold.it/15/bb8855/000000?text=+)|u| up cannon|
+|![#f9c8a7](https://placehold.it/15/f9c8a7/000000?text=+)|s| stop canon tile|
 ## Create map
 ### This section is for mappers:
 
