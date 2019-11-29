@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:13 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/28 18:10:14 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:02:47 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <wolf3d.h>
 #include <math.h>
 #include <map.h>
-#define COLOR_NB 13
+#define COLOR_NB 18
 
 static void	init_color_id(char *ci)
 {
@@ -31,15 +31,15 @@ static void	init_color_id(char *ci)
 	ci[10] = 'D';
 	ci[11] = 'U';
 	ci[12] = '8';
+	ci[13] = 'r';
+	ci[14] = 'l';
+	ci[15] = 'd';
+	ci[16] = 'u';
+	ci[17] = 's';
 }
 
-static int	search_color(char id, t_cam *cam)
+static void	init_color(int *color)
 {
-	char	color_id[COLOR_NB];
-	int		color[COLOR_NB];
-	int		i;
-
-	init_color_id(color_id);
 	color[0] = 0xc8c8c8;
 	color[1] = 0xff0044;
 	color[2] = 0xff5050;
@@ -53,11 +53,27 @@ static int	search_color(char id, t_cam *cam)
 	color[10] = 0x996633;
 	color[11] = 0x663300;
 	color[12] = 0x66ff33;
+	color[13] = 0xe55555;
+	color[14] = 0xee8888;
+	color[15] = 0xeebb88;
+	color[16] = 0xbb8855;
+	color[17] = 0xf9c8a7;
+}
+
+static int	search_color(char id, t_cam *cam)
+{
+	char	color_id[COLOR_NB];
+	int		color[COLOR_NB];
+	int		i;
+
+	init_color_id(color_id);
+	init_color(color);
 	i = 0;
-	while (i++ < COLOR_NB)
+	while (i < COLOR_NB)
 	{
-		if (color_id[i - 1] == id && !(i == 7 && cam->button == true))
-			return (color[i - 1]);
+		if (color_id[i] == id && !(i == 6 && cam->button == true))
+			return (color[i]);
+		++i;
 	}
 	return (0x0);
 }

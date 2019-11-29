@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:09:15 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/28 18:09:17 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:11:43 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@
 #include <event.h>
 #define EVENT_NB 16
 
-static void	found_event_function(int *key_tab, t_env *env, int key, int i)
+static void	init_f_tab(void (*f_tab[EVENT_NB])(t_env *env))
 {
-	void (*f_tab[EVENT_NB])(t_env *env);
-
 	f_tab[0] = event_left;
 	f_tab[1] = event_backward;
 	f_tab[2] = event_right;
@@ -37,10 +35,21 @@ static void	found_event_function(int *key_tab, t_env *env, int key, int i)
 	f_tab[13] = event_r_rotation;
 	f_tab[14] = event_down;
 	f_tab[15] = event_up;
+}
+
+static void	found_event_function(int *key_tab, t_env *env, int key, int i)
+{
+	void (*f_tab[EVENT_NB])(t_env *env);
+
+	init_f_tab(f_tab);
 	while (i < EVENT_NB)
 	{
-		if ((key == key_tab[i] && (&env->cam)->lock != 2) ||
-			((&env->cam)->lock == 2 && (i == 4 || i == 7) && key == key_tab[i]))
+		if ((key == key_tab[i] && ((&env->cam)->lock != 2
+			&& (&env->cam)->lock != 3))
+			|| ((&env->cam)->lock == 2 && (i == 4 || i == 7)
+			&& key == key_tab[i])
+			|| ((&env->cam)->lock == 3 && (i >= 4 && i <= 11)
+			&& key == key_tab[i]))
 			f_tab[i](env);
 		++i;
 	}

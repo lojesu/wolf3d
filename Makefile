@@ -33,6 +33,7 @@ SRC			= main.c				\
 			print/put_pixel.c			\
 			raycasting/raycasting.c			\
 			raycasting/raycastool.c			\
+			special_bloc/cannons.c			\
 			special_bloc/speed_walk.c		\
 			special_bloc/scene.c			\
 			special_bloc/special_bloc_manager.c	\
