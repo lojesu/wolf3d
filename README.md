@@ -64,9 +64,6 @@ An example of maze map will look like this:
 - If the player reset, all your buttons who have been actived will still be actived
 
 ## Textures
-![#https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/wall.bmp](https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/wall.bmp)
-![#https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/wall2.bmp](https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/wall2.bmp)
-![#https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/library.bmp](https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/library.bmp)
 ![#https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/brown.bmp](https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/brown.bmp)
 ![#https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/green.bmp](https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/green.bmp)
 ![#https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/yellow.bmp](https://raw.githubusercontent.com/lojesu/wolf3d/master/textures/yellow.bmp)
