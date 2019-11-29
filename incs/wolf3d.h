@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:11:38 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/28 18:11:39 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 16:32:22 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_cam			init_cam(char **map);
 */
 void			new_image(t_win *win);
 void			put_image(t_win *win);
-void			clear_window(t_win *win);
 void			quit_window(t_env *env);
 
 /*
@@ -130,8 +129,6 @@ int				is_special_bloc(t_env *env);
 /*
 ** print functions
 */
-void			print_column(t_win *win, int size_wall, size_t column,
-		t_cam *cam);
 void			put_pixel(t_win *win, size_t x, size_t y, int color);
 void			print_mini_map(t_env *env);
 void			print(t_env *env, t_wall wall, size_t column);
@@ -141,10 +138,5 @@ void			print(t_env *env, t_wall wall, size_t column);
 */
 int				deal_key(int key, t_env *env);
 void			event_reset(t_env *env);
-
-/*
-** tool funtion
-*/
-void			my_intcpy(int *dst, int *src, int size);
 
 #endif

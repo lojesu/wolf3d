@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:42 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/29 14:12:27 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 16:28:55 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 #include <math.h>
 #include <libmath.h>
 
-void	wich_bmp
-	(t_wall wall, int my_bmp[BMP_SIZE], t_env *env)
+int		wich_bmp(t_wall wall, t_env *env)
 {
 	int x;
 	int y;
@@ -24,18 +23,15 @@ void	wich_bmp
 	x = wall.side == SIDE_RIGHT ? 32 : 0;
 	y = wall.side == SIDE_DOWN ? 32 : 0;
 	if (env->map[((int)wall.y - y) / FRAME][((int)wall.x - x) / FRAME] == '2')
-	{
-		my_intcpy(my_bmp, env->bmp[4], BMP_SIZE);
-		return ;
-	}
+		return (4);
 	if (wall.side == SIDE_RIGHT)
-		my_intcpy(my_bmp, env->bmp[0], BMP_SIZE);
+		return (0);
 	else if (wall.side == SIDE_LEFT)
-		my_intcpy(my_bmp, env->bmp[1], BMP_SIZE);
+		return (1);
 	else if (wall.side == SIDE_UP)
-		my_intcpy(my_bmp, env->bmp[2], BMP_SIZE);
+		return (2);
 	else
-		my_intcpy(my_bmp, env->bmp[3], BMP_SIZE);
+		return (3);
 }
 
 void	draw_sky(int start, size_t column, t_win *win)
@@ -68,11 +64,11 @@ void	draw_texture(t_wall wall, t_env *env, size_t column, int start)
 	int		i;
 	double	z;
 	double	ratio;
-	int		my_bmp[BMP_SIZE];
+	int		id;
 
 	z = 1;
 	i = start > 0 ? start : 0;
-	wich_bmp(wall, my_bmp, env);
+	id = wich_bmp(wall, env);
 	pos = wall.side == SIDE_UP || wall.side == SIDE_DOWN ?
 		fmod(wall.x, 64) : fmod(wall.y, 64);
 	ratio = (double)BMP_SIDE / (double)(DIST_SCREEN * FRAME / wall.dist);
@@ -81,7 +77,7 @@ void	draw_texture(t_wall wall, t_env *env, size_t column, int start)
 	while (i < start + (DIST_SCREEN * FRAME / wall.dist) && i < HEIGHT)
 	{
 		put_pixel(&env->win, column, i,
-				my_bmp[pos + BMP_SIZE - (int)z * BMP_SIDE]);
+				env->bmp[id][pos + BMP_SIZE - (int)z * BMP_SIDE]);
 		++i;
 		z += ratio;
 	}

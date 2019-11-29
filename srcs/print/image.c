@@ -6,7 +6,7 @@
 /*   By: glegendr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:10:35 by glegendr          #+#    #+#             */
-/*   Updated: 2019/11/28 18:10:36 by glegendr         ###   ########.fr       */
+/*   Updated: 2019/11/29 16:31:41 by glegendr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "wolf3d.h"
 #include <stdlib.h>
 #include <libft.h>
+
+static void	clear_window(t_win *win)
+{
+	if (IMG_PTR)
+		mlx_destroy_image(MLX_PTR, IMG_PTR);
+	mlx_clear_window(MLX_PTR, WIN_PTR);
+}
 
 void	quit_window(t_env *env)
 {
@@ -24,13 +31,6 @@ void	quit_window(t_env *env)
 	mlx_destroy_window(MLX_PTR, WIN_PTR);
 	ft_tabdel_char(&env->map);
 	exit(1);
-}
-
-void	clear_window(t_win *win)
-{
-	if (IMG_PTR)
-		mlx_destroy_image(MLX_PTR, IMG_PTR);
-	mlx_clear_window(MLX_PTR, WIN_PTR);
 }
 
 void	new_image(t_win *win)
